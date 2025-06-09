@@ -1,20 +1,62 @@
 package pt.iscode.gestorcandidaturas
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
+import pt.iscode.gestorcandidaturas.adapters.ApplicationsAdapter
+import pt.iscode.gestorcandidaturas.databinding.ActivityMainBinding
+import pt.iscode.gestorcandidaturas.interfaces.OnApplicationClickListener
+import pt.iscode.gestorcandidaturas.models.ApplicationsValues
+import pt.iscode.gestorcandidaturas.repositories.ApplicationRepository
+import pt.iscode.gestorcandidaturas.repositories.CompanyRepository
+import pt.iscode.gestorcandidaturas.repositories.StatusRepository
+import pt.iscode.gestorcandidaturas.viewModels.ApplicationViewModel
+import pt.iscode.gestorcandidaturas.viewModels.ApplicationViewModelFactory
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), OnApplicationClickListener {
+
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_main)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        val db = AppDatabase.getDatabase(this)
+
+        val applicationRepository = ApplicationRepository(db.applicationDao())
+        val companyRepository = CompanyRepository(db.companyDao())
+        val statusRepository = StatusRepository(db.statusDao())
+
+        val viewModelFactory = ApplicationViewModelFactory(
+            applicationRepository,
+            companyRepository,
+            statusRepository
+        )
+        val viewModel = ViewModelProvider(this, viewModelFactory)[ApplicationViewModel::class.java]
+
+        val adapter = ApplicationsAdapter(this)
+        binding.applicationsListRecyclerView.adapter = adapter
+
+        viewModel.applications.observe(this) { list ->
+            adapter.submitList(list)
+        }
+
+        viewModel.loadApplications()
+
+
+    }
+
+    override fun onApplicationClick(application: ApplicationsValues) {
+        Toast.makeText(this, "Clicked: ${application.jobTitle}", Toast.LENGTH_SHORT).show()
     }
 }
