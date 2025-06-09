@@ -11,17 +11,17 @@ import pt.iscode.gestorcandidaturas.entities.Company
 @Dao
 interface CompanyDAO {
     @Query("SELECT * FROM company")
-    fun getAll(): List<Company>
+    suspend fun getAll(): List<Company>
 
     @Query("SELECT * FROM company WHERE id= :id")
-    fun getCompanyByID(id: Int): Company
+    suspend fun getCompanyByID(id: Int): Company
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(company: Company)
+    suspend fun insert(company: Company)
 
     @Delete
-    fun delete(company: Company)
+    suspend fun delete(company: Company)
 
     @Update
-    fun update(company: Company)
+    suspend fun update(company: Company)
 }
