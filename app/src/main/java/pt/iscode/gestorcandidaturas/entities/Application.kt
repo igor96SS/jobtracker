@@ -22,7 +22,7 @@ import androidx.room.PrimaryKey
     ]
 )
 data class Application(
-    @PrimaryKey(autoGenerate = true) val id:Int,
+    @PrimaryKey(autoGenerate = true) val id:Int = 0,
     @ColumnInfo(name = "jobTitle") val name: String,
     @ColumnInfo(name = "location") val location: String,
     @ColumnInfo(name = "application_url") val applicationURL: String?,
