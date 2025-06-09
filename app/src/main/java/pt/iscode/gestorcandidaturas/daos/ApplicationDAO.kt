@@ -10,17 +10,17 @@ import pt.iscode.gestorcandidaturas.entities.Application
 @Dao
 interface ApplicationDAO {
     @Query("SELECT * FROM Application")
-    fun getAll(): List<Application>
+    suspend fun getAll(): List<Application>
 
     @Query("SELECT * FROM Application WHERE id = :id")
-    fun getApplicationByID(id: Int): Application
+    suspend fun getApplicationByID(id: Int): Application
 
     @Insert
-    fun insert(application: Application)
+    suspend fun insert(application: Application)
 
     @Delete
-    fun delete(application: Application)
+    suspend fun delete(application: Application)
 
     @Update
-    fun update(application: Application)
+    suspend fun update(application: Application)
 }
