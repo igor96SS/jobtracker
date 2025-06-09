@@ -15,5 +15,5 @@ interface StatusDAO {
     suspend fun getStatusByID(id: Int): String
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertAll(statuses: List<Status>)
+    fun insertAll(statuses: List<Status>)
 }
