@@ -5,6 +5,7 @@ import android.icu.util.Calendar
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -41,6 +42,9 @@ class AddApplicationActivity : AppCompatActivity() {
 
         //Initializing Repositories
         reposInitialization()
+
+        //Open Add Company Dialog
+        openCompanyDialog()
 
         //Select Application Date
         selectDate()
@@ -98,6 +102,25 @@ class AddApplicationActivity : AppCompatActivity() {
         // Calling data functions
         viewModel.loadCompanies()
         viewModel.loadStatus()
+    }
+
+    private fun openCompanyDialog(){
+        binding.companyBTN.setOnClickListener {
+            val dialogView = layoutInflater.inflate(R.layout.layout_company_dialog, null)
+            val alertDialog = AlertDialog.Builder(this, com.google.android.material.R.style.AlertDialog_AppCompat)
+                .setView(dialogView)
+                .setPositiveButton("Save",null)
+                .create()
+
+            alertDialog.setOnShowListener {
+
+            }
+
+            alertDialog.show()
+
+
+        }
+
     }
 
     private fun saveApplication(){
