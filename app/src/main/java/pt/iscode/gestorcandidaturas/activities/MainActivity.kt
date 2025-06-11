@@ -1,5 +1,6 @@
-package pt.iscode.gestorcandidaturas
+package pt.iscode.gestorcandidaturas.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -7,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
+import pt.iscode.gestorcandidaturas.AppDatabase
+import pt.iscode.gestorcandidaturas.R
 import pt.iscode.gestorcandidaturas.adapters.ApplicationsAdapter
 import pt.iscode.gestorcandidaturas.databinding.ActivityMainBinding
 import pt.iscode.gestorcandidaturas.interfaces.OnApplicationClickListener
@@ -25,7 +28,7 @@ class MainActivity : AppCompatActivity(), OnApplicationClickListener {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -52,6 +55,11 @@ class MainActivity : AppCompatActivity(), OnApplicationClickListener {
         }
 
         viewModel.loadApplications()
+
+        binding.mainFloatBTN.setOnClickListener {
+
+            startActivity(Intent(this, AddApplicationActivity::class.java))
+        }
 
 
     }
