@@ -11,13 +11,13 @@ import java.time.LocalDate
         ForeignKey(
             entity = Status::class,
             parentColumns = ["id"],
-            childColumns = ["statusID"],
+            childColumns = ["status_id"],
             onDelete = ForeignKey.RESTRICT
         ),
         ForeignKey(
             entity = Company::class,
             parentColumns = ["id"],
-            childColumns = ["companyID"],
+            childColumns = ["company_id"],
             onDelete = ForeignKey.RESTRICT
         )
     ]
