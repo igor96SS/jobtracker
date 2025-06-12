@@ -4,11 +4,13 @@ import android.app.DatePickerDialog
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.textfield.TextInputEditText
 import pt.iscode.gestorcandidaturas.AppDatabase
 import pt.iscode.gestorcandidaturas.R
 import pt.iscode.gestorcandidaturas.databinding.ActivityAddApplicationBinding
@@ -17,6 +19,7 @@ import pt.iscode.gestorcandidaturas.repositories.CompanyRepository
 import pt.iscode.gestorcandidaturas.repositories.StatusRepository
 import pt.iscode.gestorcandidaturas.viewModels.ApplicationViewModel
 import pt.iscode.gestorcandidaturas.viewModels.ApplicationViewModelFactory
+import java.util.Locale
 
 class AddApplicationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddApplicationBinding
@@ -66,7 +69,8 @@ class AddApplicationActivity : AppCompatActivity() {
 
             val datePickerDialog = DatePickerDialog(this,
                 { _,selectedYear, selectedMonth, selectedDay ->
-                    val dateString = "${selectedDay}/${selectedMonth+1}/${selectedYear}"
+                    val dateString = String.format(Locale.FRANCE,"%02d/%02d/%04d", selectedDay, selectedMonth + 1, selectedYear)
+
                     binding.datePickerInput.setText(dateString)
             }, year, month, day
             )
@@ -75,7 +79,7 @@ class AddApplicationActivity : AppCompatActivity() {
     }
 
     private fun populateSpinners() {
-        viewModel.companies.observe(this) { companyList ->
+        viewModel.companiesLiveData.observe(this) { companyList ->
             val names = if (companyList.isNotEmpty()) {
                 companyList.map { it.name }
             } else {
@@ -90,7 +94,7 @@ class AddApplicationActivity : AppCompatActivity() {
             binding.companySpinner.adapter = companyAdapter
         }
 
-        viewModel.statuses.observe(this) { statusList ->
+        viewModel.statusesLiveData.observe(this) { statusList ->
             val statusAdapter = ArrayAdapter(
                 this,
                 android.R.layout.simple_spinner_item,
@@ -107,35 +111,73 @@ class AddApplicationActivity : AppCompatActivity() {
     private fun openCompanyDialog(){
         binding.companyBTN.setOnClickListener {
             val dialogView = layoutInflater.inflate(R.layout.layout_company_dialog, null)
-            val alertDialog = AlertDialog.Builder(this, com.google.android.material.R.style.AlertDialog_AppCompat)
+            val alertDialog = AlertDialog.Builder(this)
                 .setView(dialogView)
+                .setNegativeButton("Cancel",null)
                 .setPositiveButton("Save",null)
                 .create()
 
             alertDialog.setOnShowListener {
+                val companyName = dialogView.findViewById<TextInputEditText>(R.id.companyNameText)
+                val companyWebsite = dialogView.findViewById<TextInputEditText>(R.id.companyWebsiteText)
+                val companyLinkedin = dialogView.findViewById<TextInputEditText>(R.id.companyLinkedinText)
 
+                val saveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                saveButton.setOnClickListener {
+                    val name = companyName.text?.toString()?.trim()
+                    val website = companyWebsite.text?.toString()?.trim() ?: ""
+                    val linkedin = companyLinkedin.text?.toString()?.trim()?: ""
+
+                    if (name.isNullOrEmpty()){
+                        companyName.error = "Company Name is required"
+                        return@setOnClickListener
+                    }
+
+                    viewModel.addCompany(name,website, linkedin)
+                    viewModel.loadCompanies()
+                    alertDialog.dismiss()
+                }
             }
-
             alertDialog.show()
-
-
         }
-
     }
 
-    private fun saveApplication(){
+    private fun saveApplication() {
         binding.saveApplications.setOnClickListener {
-            val companyId = binding.companySpinner.selectedItemId.toString().toInt()
-            val jobTitle = binding.jobTitleText.text.toString()
-            val jobUrl = binding.jobUrlText.text.toString()
-            val jobLocation = binding.jobLocationText.toString()
-            val applicationDate = binding.datePickerInput.text.toString()
-            val notes = binding.notesInput.text.toString()
-            val status = binding.statusDropdown.id
+            val selectedCompanyPosition = binding.companySpinner.selectedItemPosition
+            val companyList = viewModel.companiesLiveData.value
+            val companyId = companyList?.getOrNull(selectedCompanyPosition)?.id
+                ?: run {
+                    Toast.makeText(this, "Selecione uma empresa válida", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
 
-            viewModel.addApplications(companyId,jobTitle, jobLocation, applicationDate, jobUrl, status, notes)
+            val statusName = binding.statusDropdown.text.toString()
+            val statusList = viewModel.statusesLiveData.value
+            val statusId = statusList?.find { it.name == statusName }?.id
+                ?: run {
+                    Toast.makeText(this, "Selecione um status válido", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+
+            val jobTitle = binding.jobTitleText.text.toString().trim()
+            val jobUrl = binding.jobUrlText.text.toString().trim()
+            val jobLocation = binding.jobLocationText.text.toString().trim()
+            val applicationDate = binding.datePickerInput.text.toString().trim()
+            val notes = binding.notesInput.text.toString().trim()
+
+            viewModel.addApplications(
+                companyId,
+                jobTitle,
+                jobLocation,
+                applicationDate,
+                jobUrl,
+                statusId,
+                notes
+            )
         }
     }
+
 
     private fun reposInitialization(){
         val db = AppDatabase.getDatabase(this)
