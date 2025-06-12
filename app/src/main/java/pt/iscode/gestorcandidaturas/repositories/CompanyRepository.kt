@@ -8,4 +8,8 @@ class CompanyRepository(private val companyDao: CompanyDAO) {
     suspend fun getAllCompanies(): List<Company>{
         return companyDao.getAll()
     }
+
+    suspend fun insertCompany(company: Company){
+        companyDao.insert(company)
+    }
 }
