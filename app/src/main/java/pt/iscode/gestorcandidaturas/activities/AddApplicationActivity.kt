@@ -1,6 +1,7 @@
 package pt.iscode.gestorcandidaturas.activities
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.widget.ArrayAdapter
@@ -175,6 +176,9 @@ class AddApplicationActivity : AppCompatActivity() {
                 statusId,
                 notes
             )
+
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
     }
 
