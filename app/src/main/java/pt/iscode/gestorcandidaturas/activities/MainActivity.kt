@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import pt.iscode.gestorcandidaturas.AppDatabase
 import pt.iscode.gestorcandidaturas.R
 import pt.iscode.gestorcandidaturas.adapters.ApplicationsAdapter
@@ -48,19 +49,19 @@ class MainActivity : AppCompatActivity(), OnApplicationClickListener {
         val viewModel = ViewModelProvider(this, viewModelFactory)[ApplicationViewModel::class.java]
 
         val adapter = ApplicationsAdapter(this)
+        binding.applicationsListRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.applicationsListRecyclerView.adapter = adapter
 
         viewModel.applications.observe(this) { list ->
             adapter.submitList(list)
         }
 
-        viewModel.loadApplications()
+        viewModel.loadAllData()
 
         binding.mainFloatBTN.setOnClickListener {
 
             startActivity(Intent(this, AddApplicationActivity::class.java))
         }
-
 
     }
 
