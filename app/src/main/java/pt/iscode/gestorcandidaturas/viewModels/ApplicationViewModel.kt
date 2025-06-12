@@ -7,10 +7,15 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import pt.iscode.gestorcandidaturas.entities.Application
+import pt.iscode.gestorcandidaturas.entities.Company
+import pt.iscode.gestorcandidaturas.entities.Status
 import pt.iscode.gestorcandidaturas.models.ApplicationsValues
 import pt.iscode.gestorcandidaturas.repositories.ApplicationRepository
 import pt.iscode.gestorcandidaturas.repositories.CompanyRepository
 import pt.iscode.gestorcandidaturas.repositories.StatusRepository
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class ApplicationViewModel(
     private val repository: ApplicationRepository,
@@ -21,15 +26,36 @@ class ApplicationViewModel(
     private val _applications = MutableLiveData<List<ApplicationsValues>>()
     val applications: LiveData<List<ApplicationsValues>> get() = _applications
 
-    fun loadApplications() {
+    val companiesLiveData = MutableLiveData<List<Company>>()
+    val statusesLiveData = MutableLiveData<List<Status>>()
+
+    fun loadStatus(){
         viewModelScope.launch {
-            val apps = withContext(Dispatchers.IO) { repository.getAllApplications() }
+            val list = withContext(Dispatchers.IO){
+                statusRepository.getAllStatuses()
+            }
+            statusesLiveData.value = list
+        }
+    }
+
+    fun loadCompanies(){
+        viewModelScope.launch {
+            val list = withContext(Dispatchers.IO){
+                companyRepository.getAllCompanies()
+            }
+            companiesLiveData.value = list
+        }
+    }
+
+    fun loadAllData() {
+        viewModelScope.launch {
             val companies = withContext(Dispatchers.IO) { companyRepository.getAllCompanies() }
             val statuses = withContext(Dispatchers.IO) { statusRepository.getAllStatuses() }
+            val apps = withContext(Dispatchers.IO) { repository.getAllApplications() }
 
             val valuesList = apps.map { app ->
-                val companyName = companies.find { it.id == app.companyID }?.name ?: "Desconhecida"
-                val statusName = statuses.find { it.id == app.statusID }?.name ?: "Desconhecido"
+                val companyName = companies.find { it.id == app.companyID }?.name ?: "Unknown Company"
+                val statusName = statuses.find { it.id == app.statusID }?.name ?: "Unknown Status"
                 ApplicationsValues(
                     companyName = companyName,
                     jobTitle = app.name,
@@ -39,7 +65,43 @@ class ApplicationViewModel(
                 )
             }
 
-            _applications.value = valuesList
+            _applications.postValue(valuesList)
+            companiesLiveData.postValue(companies)
+            statusesLiveData.postValue(statuses)
+
+        }
+    }
+
+
+    fun addApplications(companyId: Int, jobTitle: String, location: String, dateApplied: String, applicationUrl: String, statusId: Int, notes: String){
+        viewModelScope.launch {
+            val userFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+            val parsedDate = LocalDate.parse(dateApplied, userFormatter)
+
+            val application = Application(
+                name = jobTitle,
+                location = location,
+                dateApplied = parsedDate,
+                applicationURL = applicationUrl,
+                statusID = statusId,
+                companyID = companyId,
+                notes = notes
+            )
+            repository.insertApplication(application)
+        }
+    }
+
+
+
+    fun addCompany(companyName: String, companyWebsite: String, companyLinkedin: String){
+        viewModelScope.launch {
+            val company = Company(
+                name = companyName,
+                website = companyWebsite,
+                linkedinUrl = companyLinkedin
+            )
+
+            companyRepository.insertCompany(company)
         }
     }
 }
