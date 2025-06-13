@@ -5,18 +5,16 @@ import android.content.Intent
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.widget.ArrayAdapter
-import android.widget.ImageButton
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.textfield.TextInputEditText
 import pt.iscode.gestorcandidaturas.AppDatabase
 import pt.iscode.gestorcandidaturas.R
+import pt.iscode.gestorcandidaturas.ToolbarManager
 import pt.iscode.gestorcandidaturas.databinding.ActivityAddApplicationBinding
 import pt.iscode.gestorcandidaturas.repositories.ApplicationRepository
 import pt.iscode.gestorcandidaturas.repositories.CompanyRepository
@@ -48,7 +46,9 @@ class AddApplicationActivity : AppCompatActivity(){
         }
 
         //Initializing toolbar
-        toolbarInitialization()
+        ToolbarManager(this).setup(
+            title = "Your Applications",
+        )
 
         //Initializing Repositories
         reposInitialization()
@@ -64,23 +64,6 @@ class AddApplicationActivity : AppCompatActivity(){
 
         //Save Application
         saveApplication()
-
-    }
-
-    private fun toolbarInitialization(){
-
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
-
-        val titleText = findViewById<TextView>(R.id.labelText)
-        val buttonBack = findViewById<ImageButton>(R.id.buttonBack)
-
-        titleText.text = "Your Applications"
-
-        buttonBack.setOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
-        }
 
     }
 
