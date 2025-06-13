@@ -4,15 +4,22 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.icu.util.Calendar
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.ArrayAdapter
+import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.textfield.TextInputEditText
 import pt.iscode.gestorcandidaturas.AppDatabase
+import pt.iscode.gestorcandidaturas.NavbarHelper
 import pt.iscode.gestorcandidaturas.R
 import pt.iscode.gestorcandidaturas.databinding.ActivityAddApplicationBinding
 import pt.iscode.gestorcandidaturas.repositories.ApplicationRepository
@@ -22,7 +29,7 @@ import pt.iscode.gestorcandidaturas.viewModels.ApplicationViewModel
 import pt.iscode.gestorcandidaturas.viewModels.ApplicationViewModelFactory
 import java.util.Locale
 
-class AddApplicationActivity : AppCompatActivity() {
+class AddApplicationActivity : AppCompatActivity(){
     private lateinit var binding: ActivityAddApplicationBinding
 
     private lateinit var applicationRepository: ApplicationRepository
@@ -44,6 +51,9 @@ class AddApplicationActivity : AppCompatActivity() {
             insets
         }
 
+        toolbarInitialization()
+
+
         //Initializing Repositories
         reposInitialization()
 
@@ -58,6 +68,24 @@ class AddApplicationActivity : AppCompatActivity() {
 
         //Save Application
         saveApplication()
+
+    }
+
+    private fun toolbarInitialization(){
+
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        val titleText = findViewById<TextView>(R.id.labelText)
+        val buttonBack = findViewById<ImageButton>(R.id.buttonBack)
+
+        titleText.text = "Your Applications"
+
+        buttonBack.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
+
 
     }
 
