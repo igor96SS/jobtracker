@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import pt.iscode.gestorcandidaturas.R
-import pt.iscode.gestorcandidaturas.interfaces.OnApplicationClickListener
+import pt.iscode.gestorcandidaturas.interfaces.OnApplicationItemClickListener
 import pt.iscode.gestorcandidaturas.models.ApplicationsValues
 
 class ApplicationsAdapter(
-    private val listener: OnApplicationClickListener
+    private val listener: OnApplicationItemClickListener
 ) : RecyclerView.Adapter<ApplicationsAdapter.ApplicationViewHolder>() {
 
     private var applicationsList: List<ApplicationsValues> = emptyList()
@@ -35,7 +35,7 @@ class ApplicationsAdapter(
             applicationDate.text = application.applicationDate
 
             itemView.setOnClickListener {
-                listener.onApplicationClick(application)
+                listener.onApplicationItemClick(application.applicationId)
             }
         }
     }

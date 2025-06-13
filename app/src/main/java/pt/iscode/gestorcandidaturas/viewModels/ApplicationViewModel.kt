@@ -23,18 +23,27 @@ class ApplicationViewModel(
     private val statusRepository: StatusRepository
 ) : ViewModel() {
 
+    // Backing properties for exposing immutable LiveData to the UI.
+    // ViewModel updates the data internally,
+    // while only exposing read-only access (LiveData) to Activities or Fragments.
     private val _applications = MutableLiveData<List<ApplicationsValues>>()
     val applications: LiveData<List<ApplicationsValues>> get() = _applications
 
-    val companiesLiveData = MutableLiveData<List<Company>>()
-    val statusesLiveData = MutableLiveData<List<Status>>()
+    private val _companies = MutableLiveData<List<Company>>()
+    val companiesLiveData: LiveData<List<Company>> get() = _companies
+
+    private val _statuses = MutableLiveData<List<Status>>()
+    val statusesLiveData: LiveData<List<Status>> get() = _statuses
+
+    private val _applicationDetails = MutableLiveData<ApplicationsValues>()
+    val applicationDetail: LiveData<ApplicationsValues> get() = _applicationDetails
 
     fun loadStatus(){
         viewModelScope.launch {
             val list = withContext(Dispatchers.IO){
                 statusRepository.getAllStatuses()
             }
-            statusesLiveData.value = list
+            _statuses.value = list
         }
     }
 
@@ -43,7 +52,33 @@ class ApplicationViewModel(
             val list = withContext(Dispatchers.IO){
                 companyRepository.getAllCompanies()
             }
-            companiesLiveData.value = list
+            _companies.value = list
+        }
+    }
+
+    fun loadApplicationById(applicationId: Int){
+        viewModelScope.launch {
+            val application = withContext(Dispatchers.IO) {
+                repository.getApplicationById(applicationId)
+            }
+
+            val company = withContext(Dispatchers.IO) {
+                companyRepository.getCompanyById(application.companyID)
+            }
+            val statusName = withContext(Dispatchers.IO) {
+                statusRepository.getStatusById(application.statusID)
+            }
+
+            val applicationValues = ApplicationsValues(
+                applicationId = application.id,
+                companyName = company.name,
+                jobTitle = application.name,
+                status = statusName,
+                notes = application.notes ?: "",
+                applicationDate = application.dateApplied.toString(),
+                applicationURL = application.applicationURL
+            )
+            _applicationDetails.postValue(applicationValues)
         }
     }
 
@@ -57,17 +92,19 @@ class ApplicationViewModel(
                 val companyName = companies.find { it.id == app.companyID }?.name ?: "Unknown Company"
                 val statusName = statuses.find { it.id == app.statusID }?.name ?: "Unknown Status"
                 ApplicationsValues(
+                    applicationId = app.id,
                     companyName = companyName,
                     jobTitle = app.name,
                     status = statusName,
                     notes = app.notes ?: "",
-                    applicationDate = app.dateApplied.toString()
+                    applicationDate = app.dateApplied.toString(),
+                    applicationURL = app.applicationURL
                 )
             }
 
             _applications.postValue(valuesList)
-            companiesLiveData.postValue(companies)
-            statusesLiveData.postValue(statuses)
+            _companies.postValue(companies)
+            _statuses.postValue(statuses)
 
         }
     }
@@ -90,8 +127,6 @@ class ApplicationViewModel(
             repository.insertApplication(application)
         }
     }
-
-
 
     fun addCompany(companyName: String, companyWebsite: String, companyLinkedin: String){
         viewModelScope.launch {

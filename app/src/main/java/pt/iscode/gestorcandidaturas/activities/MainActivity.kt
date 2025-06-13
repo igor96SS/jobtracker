@@ -2,7 +2,6 @@ package pt.iscode.gestorcandidaturas.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -13,15 +12,14 @@ import pt.iscode.gestorcandidaturas.AppDatabase
 import pt.iscode.gestorcandidaturas.R
 import pt.iscode.gestorcandidaturas.adapters.ApplicationsAdapter
 import pt.iscode.gestorcandidaturas.databinding.ActivityMainBinding
-import pt.iscode.gestorcandidaturas.interfaces.OnApplicationClickListener
-import pt.iscode.gestorcandidaturas.models.ApplicationsValues
+import pt.iscode.gestorcandidaturas.interfaces.OnApplicationItemClickListener
 import pt.iscode.gestorcandidaturas.repositories.ApplicationRepository
 import pt.iscode.gestorcandidaturas.repositories.CompanyRepository
 import pt.iscode.gestorcandidaturas.repositories.StatusRepository
 import pt.iscode.gestorcandidaturas.viewModels.ApplicationViewModel
 import pt.iscode.gestorcandidaturas.viewModels.ApplicationViewModelFactory
 
-class MainActivity : AppCompatActivity(), OnApplicationClickListener {
+class MainActivity : AppCompatActivity(), OnApplicationItemClickListener {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -65,7 +63,11 @@ class MainActivity : AppCompatActivity(), OnApplicationClickListener {
 
     }
 
-    override fun onApplicationClick(application: ApplicationsValues) {
-        Toast.makeText(this, "Clicked: ${application.jobTitle}", Toast.LENGTH_SHORT).show()
+    // RecyclerView Item click
+    // opens details activity with selected application ID
+    override fun onApplicationItemClick(applicationId: Int) {
+        val intent = Intent(this, ApplicationDetailsActivity::class.java)
+        intent.putExtra("applicationID", applicationId)
+        startActivity(intent)
     }
 }
