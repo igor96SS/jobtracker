@@ -4,13 +4,10 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.icu.util.Calendar
 import android.os.Bundle
-import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
-import androidx.activity.addCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -19,7 +16,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.textfield.TextInputEditText
 import pt.iscode.gestorcandidaturas.AppDatabase
-import pt.iscode.gestorcandidaturas.NavbarHelper
 import pt.iscode.gestorcandidaturas.R
 import pt.iscode.gestorcandidaturas.databinding.ActivityAddApplicationBinding
 import pt.iscode.gestorcandidaturas.repositories.ApplicationRepository
@@ -51,8 +47,8 @@ class AddApplicationActivity : AppCompatActivity(){
             insets
         }
 
+        //Initializing toolbar
         toolbarInitialization()
-
 
         //Initializing Repositories
         reposInitialization()
@@ -85,7 +81,6 @@ class AddApplicationActivity : AppCompatActivity(){
         buttonBack.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
-
 
     }
 
@@ -209,7 +204,6 @@ class AddApplicationActivity : AppCompatActivity(){
             finish()
         }
     }
-
 
     private fun reposInitialization(){
         val db = AppDatabase.getDatabase(this)
