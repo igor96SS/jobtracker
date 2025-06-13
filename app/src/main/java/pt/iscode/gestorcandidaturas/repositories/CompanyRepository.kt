@@ -12,4 +12,8 @@ class CompanyRepository(private val companyDao: CompanyDAO) {
     suspend fun insertCompany(company: Company){
         companyDao.insert(company)
     }
+
+    suspend fun getCompanyById(id: Int): Company{
+        return companyDao.getCompanyByID(id)
+    }
 }
