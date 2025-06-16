@@ -12,9 +12,6 @@ class ToolbarManager(private val activity: AppCompatActivity) {
         onEditClick: (() -> Unit)? = null,
         onDeleteClick: (() -> Unit)? = null,
     ) {
-        val toolbar = activity.findViewById<Toolbar>(R.id.toolbar)
-        activity.setSupportActionBar(toolbar)
-        activity.supportActionBar?.setDisplayShowTitleEnabled(false)
 
         val titleText = activity.findViewById<TextView>(R.id.labelText)
         val buttonBack = activity.findViewById<ImageButton>(R.id.buttonBack)
