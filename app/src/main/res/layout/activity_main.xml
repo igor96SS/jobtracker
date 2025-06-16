@@ -24,6 +24,7 @@
         android:contentDescription="@string/add_application_button"
         android:src="@drawable/plus_sign"
         app:borderWidth="0dp"
+        app:maxImageSize="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
