@@ -16,8 +16,8 @@
 
         <ImageButton
             android:id="@+id/buttonBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:background="@null"
             android:src="@drawable/ic_arrow_back"
             android:contentDescription="Voltar" />
@@ -36,8 +36,8 @@
 
         <ImageButton
             android:id="@+id/buttonEdit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:src="@drawable/ic_edit"
             android:contentDescription="Editar"
             android:visibility="visible"
@@ -46,8 +46,8 @@
 
         <ImageButton
             android:id="@+id/buttonDelete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:src="@drawable/ic_delete"
             android:contentDescription="Apagar"
             android:visibility="visible"
