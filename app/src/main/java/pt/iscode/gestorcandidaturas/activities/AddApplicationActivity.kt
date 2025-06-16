@@ -14,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.textfield.TextInputEditText
 import pt.iscode.gestorcandidaturas.AppDatabase
 import pt.iscode.gestorcandidaturas.R
+import pt.iscode.gestorcandidaturas.ToolbarManager
 import pt.iscode.gestorcandidaturas.databinding.ActivityAddApplicationBinding
 import pt.iscode.gestorcandidaturas.repositories.ApplicationRepository
 import pt.iscode.gestorcandidaturas.repositories.CompanyRepository
@@ -22,7 +23,7 @@ import pt.iscode.gestorcandidaturas.viewModels.ApplicationViewModel
 import pt.iscode.gestorcandidaturas.viewModels.ApplicationViewModelFactory
 import java.util.Locale
 
-class AddApplicationActivity : AppCompatActivity() {
+class AddApplicationActivity : AppCompatActivity(){
     private lateinit var binding: ActivityAddApplicationBinding
 
     private lateinit var applicationRepository: ApplicationRepository
@@ -43,6 +44,11 @@ class AddApplicationActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        //Initializing toolbar
+        ToolbarManager(this).setup(
+            title = "Your Applications",
+        )
 
         //Initializing Repositories
         reposInitialization()
@@ -181,7 +187,6 @@ class AddApplicationActivity : AppCompatActivity() {
             finish()
         }
     }
-
 
     private fun reposInitialization(){
         val db = AppDatabase.getDatabase(this)

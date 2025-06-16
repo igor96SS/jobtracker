@@ -1,12 +1,15 @@
 package pt.iscode.gestorcandidaturas.activities
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import pt.iscode.gestorcandidaturas.AppDatabase
 import pt.iscode.gestorcandidaturas.R
+import pt.iscode.gestorcandidaturas.ToolbarManager
 import pt.iscode.gestorcandidaturas.databinding.ActivityApplicationDetailsBinding
 import pt.iscode.gestorcandidaturas.repositories.ApplicationRepository
 import pt.iscode.gestorcandidaturas.repositories.CompanyRepository
@@ -26,6 +29,8 @@ class ApplicationDetailsActivity : AppCompatActivity() {
         ApplicationViewModelFactory(applicationRepository, companyRepository, statusRepository)
     }
 
+    private var applicationID: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityApplicationDetailsBinding.inflate(layoutInflater)
@@ -35,14 +40,38 @@ class ApplicationDetailsActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        //Initializing Repositories
+        //needs to be called in first
         reposInitialization()
 
         // get application id and send it to the function to populate UI
-        val applicationID = intent.getIntExtra("applicationID", 0)
+        applicationID = intent.getIntExtra("applicationID", 0)
         populateData(applicationID)
 
 
 
+        //Initializing toolbar
+        ToolbarManager(this).setup(
+            title = "Your Applications",
+            showEdit = true,
+            showDelete = true,
+            onEditClick = {  },
+            onDeleteClick = { deleteApplication()}
+        )
+
+    }
+
+    private fun deleteApplication() {
+        AlertDialog.Builder(this)
+            .setTitle("Delete Confirmation")
+            .setMessage("Are you sure you want to delete?")
+            .setPositiveButton("Yes") { _, _ ->
+                viewModel.deleteApplication(applicationID)
+                Toast.makeText(this, "Application deleted", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
     }
 
     private fun populateData(applicationID: Int) {

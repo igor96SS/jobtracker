@@ -18,7 +18,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class ApplicationViewModel(
-    private val repository: ApplicationRepository,
+    private val applicationRepository: ApplicationRepository,
     private val companyRepository: CompanyRepository,
     private val statusRepository: StatusRepository
 ) : ViewModel() {
@@ -38,6 +38,7 @@ class ApplicationViewModel(
     private val _applicationDetails = MutableLiveData<ApplicationsValues>()
     val applicationDetail: LiveData<ApplicationsValues> get() = _applicationDetails
 
+    //region load data
     fun loadStatus(){
         viewModelScope.launch {
             val list = withContext(Dispatchers.IO){
@@ -59,7 +60,7 @@ class ApplicationViewModel(
     fun loadApplicationById(applicationId: Int){
         viewModelScope.launch {
             val application = withContext(Dispatchers.IO) {
-                repository.getApplicationById(applicationId)
+                applicationRepository.getApplicationById(applicationId)
             }
 
             val company = withContext(Dispatchers.IO) {
@@ -86,7 +87,7 @@ class ApplicationViewModel(
         viewModelScope.launch {
             val companies = withContext(Dispatchers.IO) { companyRepository.getAllCompanies() }
             val statuses = withContext(Dispatchers.IO) { statusRepository.getAllStatuses() }
-            val apps = withContext(Dispatchers.IO) { repository.getAllApplications() }
+            val apps = withContext(Dispatchers.IO) { applicationRepository.getAllApplications() }
 
             val valuesList = apps.map { app ->
                 val companyName = companies.find { it.id == app.companyID }?.name ?: "Unknown Company"
@@ -109,7 +110,9 @@ class ApplicationViewModel(
         }
     }
 
+    //endregion
 
+    //region add data
     fun addApplications(companyId: Int, jobTitle: String, location: String, dateApplied: String, applicationUrl: String, statusId: Int, notes: String){
         viewModelScope.launch {
             val userFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
@@ -124,7 +127,7 @@ class ApplicationViewModel(
                 companyID = companyId,
                 notes = notes
             )
-            repository.insertApplication(application)
+            applicationRepository.insertApplication(application)
         }
     }
 
@@ -139,5 +142,20 @@ class ApplicationViewModel(
             companyRepository.insertCompany(company)
         }
     }
+
+    //endregion
+
+    //region delete data
+    fun deleteApplication(applicationID: Int){
+        viewModelScope.launch {
+            val application = withContext(Dispatchers.IO){
+                applicationRepository.getApplicationById(applicationID)
+            }
+
+            applicationRepository.deleteApplication(application)
+        }
+    }
+
+    //endregion
 }
 

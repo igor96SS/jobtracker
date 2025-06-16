@@ -6,6 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import pt.iscode.gestorcandidaturas.AppDatabase
@@ -22,6 +23,7 @@ import pt.iscode.gestorcandidaturas.viewModels.ApplicationViewModelFactory
 class MainActivity : AppCompatActivity(), OnApplicationItemClickListener {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var viewModel: ApplicationViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +46,7 @@ class MainActivity : AppCompatActivity(), OnApplicationItemClickListener {
             companyRepository,
             statusRepository
         )
-        val viewModel = ViewModelProvider(this, viewModelFactory)[ApplicationViewModel::class.java]
+        viewModel = ViewModelProvider(this, viewModelFactory)[ApplicationViewModel::class.java]
 
         val adapter = ApplicationsAdapter(this)
         binding.applicationsListRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -62,6 +64,13 @@ class MainActivity : AppCompatActivity(), OnApplicationItemClickListener {
         }
 
     }
+
+    //Update recyclerView after changes
+    override fun onResume() {
+        super.onResume()
+        viewModel.loadAllData()
+    }
+
 
     // RecyclerView Item click
     // opens details activity with selected application ID
