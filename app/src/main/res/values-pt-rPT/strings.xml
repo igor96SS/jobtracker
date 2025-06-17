@@ -35,7 +35,7 @@
     <string name="dialog_delete_message">Tem a certesa que deseja apagar?</string>
     <string name="dialog_delete_toast_confirmation">Candidatura apagada</string>
     <string name="toolbar_title">As tuas Candidaturas</string>
-    <string name="update_application_button">Atualizar Candidaturas</string>
+    <string name="update_application_button">Atualizar Candidatura</string>
     <string name="empty_company_dropdown">Adicionar Empresa</string>
     <string name="company_error">Nome da Empresa Obrigatório</string>
     <string name="company_error_select">Seleciona uma empresa válida</string>
