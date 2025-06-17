@@ -1,70 +1,72 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="20dp"
-    app:cardElevation="4dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_margin="12dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="6dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="12dp">
+        android:orientation="vertical"
+        android:padding="16dp">
 
-
-        <TextView
-            android:id="@+id/companyName"
-            android:layout_width="wrap_content"
+        <!-- Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="company name"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/jobPosition"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:orientation="horizontal"
+            >
 
+            <TextView
+                android:id="@+id/companyName"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Company Name"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/applicationDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12 Jun 2025"
+                android:textSize="15sp"/>
+        </LinearLayout>
+
+        <!-- Job Possition -->
         <TextView
             android:id="@+id/jobPosition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="job position"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/companyName"/>
+            android:text="UX Designer"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp"
+            android:textStyle="italic|bold" />
 
-        <TextView
-            android:id="@+id/statusName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Status Name"
-            android:background="@drawable/bg_rounded_box"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/jobPosition"
-            app:layout_constraintStart_toEndOf="@+id/jobPosition"/>
-
+        <!-- Notes -->
         <TextView
             android:id="@+id/notes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Notes"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/statusName"
-            app:layout_constraintStart_toStartOf="parent"/>
+            android:text="Enviei pelo LinkedIn, aguardar resposta."
+            android:layout_marginTop="4dp"
+            android:textSize="13sp" />
 
+        <!-- Status -->
         <TextView
-            android:id="@+id/applicationDate"
+            android:id="@+id/statusName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Application Date"
+            android:layout_marginTop="12dp"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="6dp"
+            android:text="Entrevista agendada"
+            android:textSize="15sp"
             android:background="@drawable/bg_rounded_box"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/notes"
-
-            />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
-
+            android:textColor="@android:color/white"/>
+    </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -94,17 +94,16 @@ class AddApplicationActivity : AppCompatActivity(){
             }
             val companyAdapter = ArrayAdapter(
                 this,
-                android.R.layout.simple_spinner_item,
+                android.R.layout.simple_spinner_dropdown_item,
                 names
             )
-            companyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            binding.companySpinner.adapter = companyAdapter
+            binding.companyDropdown.setAdapter(companyAdapter)
         }
 
         viewModel.statusesLiveData.observe(this) { statusList ->
             val statusAdapter = ArrayAdapter(
                 this,
-                android.R.layout.simple_spinner_item,
+                android.R.layout.simple_spinner_dropdown_item,
                 statusList.map { it.name }
             )
             binding.statusDropdown.setAdapter(statusAdapter)
@@ -151,9 +150,9 @@ class AddApplicationActivity : AppCompatActivity(){
 
     private fun saveApplication() {
         binding.saveApplications.setOnClickListener {
-            val selectedCompanyPosition = binding.companySpinner.selectedItemPosition
+            val companyName = binding.companyDropdown.text.toString()
             val companyList = viewModel.companiesLiveData.value
-            val companyId = companyList?.getOrNull(selectedCompanyPosition)?.id
+            val companyId = companyList?.find {it.name == companyName}?.id
                 ?: run {
                     Toast.makeText(this, "Selecione uma empresa válida", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
