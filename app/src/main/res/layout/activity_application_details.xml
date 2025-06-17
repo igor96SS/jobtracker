@@ -116,9 +116,11 @@
 
                 <TextView
                     android:id="@+id/jobStatusTextView"
-                    android:layout_width="100dp"
-                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="6dp"
                     android:background="@drawable/bg_rounded_box"
                     android:textSize="18sp" />
             </LinearLayout>

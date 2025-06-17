@@ -10,6 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import pt.iscode.gestorcandidaturas.AppDatabase
 import pt.iscode.gestorcandidaturas.R
+import pt.iscode.gestorcandidaturas.StatusTranslator
 import pt.iscode.gestorcandidaturas.ToolbarManager
 import pt.iscode.gestorcandidaturas.databinding.ActivityApplicationDetailsBinding
 import pt.iscode.gestorcandidaturas.repositories.ApplicationRepository
@@ -93,7 +94,7 @@ class ApplicationDetailsActivity : AppCompatActivity() {
             binding.companyNameTextView.text = applicationValues.companyName
             binding.jobUrlTextView.text = applicationValues.applicationURL
             binding.appliedAtTextView.text = applicationValues.applicationDate
-            binding.jobStatusTextView.text = applicationValues.status
+            binding.jobStatusTextView.text = StatusTranslator.translate(this, applicationValues.status)
             binding.notesTextView.text = applicationValues.notes
             binding.jobLocationTextView.text = applicationValues.applicationLocation
         }

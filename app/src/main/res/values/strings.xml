@@ -42,4 +42,8 @@
     <string name="status_error_select">Select valid Status</string>
     <string name="toast_application_updated">Application Updated</string>
     <string name="toast_application_saved">Application Saved</string>
+    <string name="status_applied">Applied</string>
+    <string name="status_refused">Refused</string>
+    <string name="status_interview">Interview</string>
+    <string name="status_waiting">Waiting</string>
 </resources>
