@@ -25,7 +25,6 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:text="Company Name"
                 android:textStyle="bold"
                 android:textSize="20sp"/>
 
@@ -33,7 +32,6 @@
                 android:id="@+id/applicationDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="12 Jun 2025"
                 android:textSize="15sp"/>
         </LinearLayout>
 
@@ -42,7 +40,6 @@
             android:id="@+id/jobPosition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="UX Designer"
             android:textSize="16sp"
             android:layout_marginTop="8dp"
             android:textStyle="italic|bold" />
@@ -52,7 +49,6 @@
             android:id="@+id/notes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Enviei pelo LinkedIn, aguardar resposta."
             android:layout_marginTop="4dp"
             android:textSize="13sp" />
 
@@ -64,7 +60,6 @@
             android:layout_marginTop="12dp"
             android:paddingHorizontal="12dp"
             android:paddingVertical="6dp"
-            android:text="Entrevista agendada"
             android:textSize="15sp"
             android:background="@drawable/bg_rounded_box"
             android:textColor="@android:color/white"/>

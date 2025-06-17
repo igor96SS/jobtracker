@@ -10,7 +10,7 @@
         android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="New Company"
+        android:text="@string/new_company"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -32,7 +32,7 @@
             android:id="@+id/companyNameText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Company Name" />
+            android:hint="@string/company_name" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -48,7 +48,7 @@
             android:id="@+id/companyWebsiteText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Company Website"/>
+            android:hint="@string/company_website"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -64,7 +64,7 @@
             android:id="@+id/companyLinkedinText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Company LinkedIn"/>
+            android:hint="@string/company_linkedin"/>
     </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -55,7 +55,7 @@ class AddApplicationActivity : AppCompatActivity(){
 
         //Initializing toolbar
         ToolbarManager(this).setup(
-            title = "Your Applications",
+            title = resources.getString(R.string.toolbar_title),
         )
 
         //Initializing Repositories
@@ -77,7 +77,7 @@ class AddApplicationActivity : AppCompatActivity(){
         applicationID = intent.getIntExtra("editApplicationID", -1)
         if (applicationID > -1){
             populateDataEdit(applicationID)
-            binding.saveApplications.setText("Update Application")
+            binding.saveApplications.text = resources.getString(R.string.update_application_button)
             saveApplication(true)
         }
 
@@ -133,7 +133,7 @@ class AddApplicationActivity : AppCompatActivity(){
             val names = if (companyList.isNotEmpty()) {
                 companyList.map { it.name }
             } else {
-                listOf("Add a Company") // ToDo change to a string.xml
+                listOf(resources.getString(R.string.empty_company_dropdown))
             }
             companyAdapter = ArrayAdapter(
                 this,
@@ -162,8 +162,8 @@ class AddApplicationActivity : AppCompatActivity(){
             val dialogView = layoutInflater.inflate(R.layout.layout_company_dialog, null)
             val alertDialog = AlertDialog.Builder(this)
                 .setView(dialogView)
-                .setNegativeButton("Cancel",null)
-                .setPositiveButton("Save",null)
+                .setNegativeButton(resources.getString(R.string.dialog_cancel_button),null)
+                .setPositiveButton(resources.getString(R.string.dialog_save_button),null)
                 .create()
 
             alertDialog.setOnShowListener {
@@ -178,7 +178,7 @@ class AddApplicationActivity : AppCompatActivity(){
                     val linkedin = companyLinkedin.text?.toString()?.trim()?: ""
 
                     if (name.isNullOrEmpty()){
-                        companyName.error = "Company Name is required"
+                        companyName.error = resources.getString(R.string.company_error)
                         return@setOnClickListener
                     }
 
@@ -198,7 +198,7 @@ class AddApplicationActivity : AppCompatActivity(){
             val companyList = viewModel.companiesLiveData.value
             val companyId = companyList?.find {it.name == companyName}?.id
                 ?: run {
-                    Toast.makeText(this, "Selecione uma empresa válida", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, resources.getString(R.string.company_error_select), Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
 
@@ -206,7 +206,7 @@ class AddApplicationActivity : AppCompatActivity(){
             val statusList = viewModel.statusesLiveData.value
             val statusId = statusList?.find { it.name == statusName }?.id
                 ?: run {
-                    Toast.makeText(this, "Selecione um status válido", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, resources.getString(R.string.status_error_select), Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
 
@@ -230,7 +230,7 @@ class AddApplicationActivity : AppCompatActivity(){
                 )
                 val intent = Intent(this, ApplicationDetailsActivity::class.java)
                 intent.putExtra("applicationID", applicationID)
-                Toast.makeText(this, "Application Updated", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, resources.getString(R.string.toast_application_updated), Toast.LENGTH_SHORT).show()
                 startActivity(intent)
                 finish()
             } else{
@@ -243,7 +243,7 @@ class AddApplicationActivity : AppCompatActivity(){
                     statusId,
                     notes
                 )
-                Toast.makeText(this, "Application Saved", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, resources.getString(R.string.toast_application_saved), Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
             }
