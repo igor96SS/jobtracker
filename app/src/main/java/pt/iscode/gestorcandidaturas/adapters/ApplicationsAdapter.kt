@@ -27,6 +27,7 @@ class ApplicationsAdapter(
         private val statusName: TextView = itemView.findViewById(R.id.statusName)
         private val notes: TextView = itemView.findViewById(R.id.notes)
         private val applicationDate: TextView = itemView.findViewById(R.id.applicationDate)
+        private val jobLocation: TextView = itemView.findViewById(R.id.jobLocation)
 
         fun bind(application: ApplicationsValues) {
             companyName.text = application.companyName
@@ -34,6 +35,8 @@ class ApplicationsAdapter(
             statusName.text = StatusTranslator.translate(itemView.context, application.status)
             notes.text = application.notes
             applicationDate.text = application.applicationDate
+            jobLocation.setCompoundDrawablesWithIntrinsicBounds(R.drawable.location_pin, 0, 0, 0)
+            jobLocation.text = application.applicationLocation
 
             itemView.setOnClickListener {
                 listener.onApplicationItemClick(application.applicationId)
