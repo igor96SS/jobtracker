@@ -10,6 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import pt.iscode.gestorcandidaturas.AppDatabase
 import pt.iscode.gestorcandidaturas.R
+import pt.iscode.gestorcandidaturas.StatusTranslator
 import pt.iscode.gestorcandidaturas.ToolbarManager
 import pt.iscode.gestorcandidaturas.databinding.ActivityApplicationDetailsBinding
 import pt.iscode.gestorcandidaturas.repositories.ApplicationRepository
@@ -53,7 +54,7 @@ class ApplicationDetailsActivity : AppCompatActivity() {
 
         //Initializing toolbar
         ToolbarManager(this).setup(
-            title = "Your Applications",
+            title = resources.getString(R.string.toolbar_title),
             showEdit = true,
             showDelete = true,
             onEditClick = { updateApplication(applicationID) },
@@ -73,14 +74,14 @@ class ApplicationDetailsActivity : AppCompatActivity() {
     // Delete button action
     private fun deleteApplication() {
         AlertDialog.Builder(this)
-            .setTitle("Delete Confirmation")
-            .setMessage("Are you sure you want to delete?")
-            .setPositiveButton("Yes") { _, _ ->
+            .setTitle(resources.getString(R.string.dialog_delete_title))
+            .setMessage(resources.getString(R.string.dialog_delete_message))
+            .setPositiveButton(resources.getString(R.string.dialog_confirm_button)) { _, _ ->
                 viewModel.deleteApplication(applicationID)
-                Toast.makeText(this, "Application deleted", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, resources.getString(R.string.dialog_delete_toast_confirmation), Toast.LENGTH_SHORT).show()
                 finish()
             }
-            .setNegativeButton("Cancel", null)
+            .setNegativeButton(resources.getString(R.string.dialog_cancel_button), null)
             .show()
     }
 
@@ -93,7 +94,7 @@ class ApplicationDetailsActivity : AppCompatActivity() {
             binding.companyNameTextView.text = applicationValues.companyName
             binding.jobUrlTextView.text = applicationValues.applicationURL
             binding.appliedAtTextView.text = applicationValues.applicationDate
-            binding.jobStatusTextView.text = applicationValues.status
+            binding.jobStatusTextView.text = StatusTranslator.translate(this, applicationValues.status)
             binding.notesTextView.text = applicationValues.notes
             binding.jobLocationTextView.text = applicationValues.applicationLocation
         }

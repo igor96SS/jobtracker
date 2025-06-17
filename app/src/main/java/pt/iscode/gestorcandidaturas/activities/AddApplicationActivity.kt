@@ -14,8 +14,10 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.textfield.TextInputEditText
 import pt.iscode.gestorcandidaturas.AppDatabase
 import pt.iscode.gestorcandidaturas.R
+import pt.iscode.gestorcandidaturas.StatusTranslator
 import pt.iscode.gestorcandidaturas.ToolbarManager
 import pt.iscode.gestorcandidaturas.databinding.ActivityAddApplicationBinding
+import pt.iscode.gestorcandidaturas.entities.Status
 import pt.iscode.gestorcandidaturas.repositories.ApplicationRepository
 import pt.iscode.gestorcandidaturas.repositories.CompanyRepository
 import pt.iscode.gestorcandidaturas.repositories.StatusRepository
@@ -42,6 +44,9 @@ class AddApplicationActivity : AppCompatActivity(){
     private lateinit var companyAdapter: ArrayAdapter<String>
     private lateinit var statusAdapter: ArrayAdapter<String>
 
+    private lateinit var translatedStatusList: List<String>
+    private lateinit var originalStatusList: List<Status>
+    private var statusToSelectFromDb: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +60,7 @@ class AddApplicationActivity : AppCompatActivity(){
 
         //Initializing toolbar
         ToolbarManager(this).setup(
-            title = "Your Applications",
+            title = resources.getString(R.string.toolbar_title),
         )
 
         //Initializing Repositories
@@ -70,17 +75,15 @@ class AddApplicationActivity : AppCompatActivity(){
         //Populating Spinners/DropDowns
         populateSpinners()
 
-        //Save Application
-        saveApplication(false)
-
-        //Edit Application mode
+        // Verify edit mode
         applicationID = intent.getIntExtra("editApplicationID", -1)
-        if (applicationID > -1){
-            populateDataEdit(applicationID)
-            binding.saveApplications.setText("Update Application")
+        if (applicationID > -1) {
+            binding.saveApplications.text = resources.getString(R.string.update_application_button)
             saveApplication(true)
+            populateDataEdit(applicationID)
+        } else {
+            saveApplication(false)
         }
-
 
     }
 
@@ -103,9 +106,16 @@ class AddApplicationActivity : AppCompatActivity(){
             }
 
             if (::statusAdapter.isInitialized) {
-                val index = statusAdapter.getPosition(applicationValues.status)
-                binding.statusDropdown.setText(statusAdapter.getItem(index), false)
+                val translatedStatus = StatusTranslator.translate(this, applicationValues.status)
+                val index = statusAdapter.getPosition(translatedStatus)
+                if (index >= 0) {
+                    binding.statusDropdown.setText(statusAdapter.getItem(index), false)
+                }
+            } else {
+                // Save status to when adapter is initialized
+                statusToSelectFromDb = StatusTranslator.translate(this, applicationValues.status)
             }
+
         }
     }
 
@@ -133,7 +143,7 @@ class AddApplicationActivity : AppCompatActivity(){
             val names = if (companyList.isNotEmpty()) {
                 companyList.map { it.name }
             } else {
-                listOf("Add a Company") // ToDo change to a string.xml
+                listOf(resources.getString(R.string.empty_company_dropdown))
             }
             companyAdapter = ArrayAdapter(
                 this,
@@ -144,12 +154,24 @@ class AddApplicationActivity : AppCompatActivity(){
         }
 
         viewModel.statusesLiveData.observe(this) { statusList ->
+            originalStatusList = statusList
+            translatedStatusList = statusList.map { StatusTranslator.translate(this, it.name) }
+
             statusAdapter = ArrayAdapter(
                 this,
                 android.R.layout.simple_spinner_dropdown_item,
-                statusList.map { it.name }
+                translatedStatusList
             )
             binding.statusDropdown.setAdapter(statusAdapter)
+
+            // Apply BD status before adapter ready
+            statusToSelectFromDb?.let {
+                val index = statusAdapter.getPosition(it)
+                if (index >= 0) {
+                    binding.statusDropdown.setText(statusAdapter.getItem(index), false)
+                }
+                statusToSelectFromDb = null
+            }
         }
 
         // Calling data functions
@@ -162,8 +184,8 @@ class AddApplicationActivity : AppCompatActivity(){
             val dialogView = layoutInflater.inflate(R.layout.layout_company_dialog, null)
             val alertDialog = AlertDialog.Builder(this)
                 .setView(dialogView)
-                .setNegativeButton("Cancel",null)
-                .setPositiveButton("Save",null)
+                .setNegativeButton(resources.getString(R.string.dialog_cancel_button),null)
+                .setPositiveButton(resources.getString(R.string.dialog_save_button),null)
                 .create()
 
             alertDialog.setOnShowListener {
@@ -178,7 +200,7 @@ class AddApplicationActivity : AppCompatActivity(){
                     val linkedin = companyLinkedin.text?.toString()?.trim()?: ""
 
                     if (name.isNullOrEmpty()){
-                        companyName.error = "Company Name is required"
+                        companyName.error = resources.getString(R.string.company_error)
                         return@setOnClickListener
                     }
 
@@ -198,17 +220,17 @@ class AddApplicationActivity : AppCompatActivity(){
             val companyList = viewModel.companiesLiveData.value
             val companyId = companyList?.find {it.name == companyName}?.id
                 ?: run {
-                    Toast.makeText(this, "Selecione uma empresa válida", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, resources.getString(R.string.company_error_select), Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
 
-            val statusName = binding.statusDropdown.text.toString()
-            val statusList = viewModel.statusesLiveData.value
-            val statusId = statusList?.find { it.name == statusName }?.id
-                ?: run {
-                    Toast.makeText(this, "Selecione um status válido", Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
-                }
+            val selectedStatusText = binding.statusDropdown.text.toString()
+            val selectedIndex = translatedStatusList.indexOf(selectedStatusText)
+            if (selectedIndex == -1) {
+                Toast.makeText(this, resources.getString(R.string.status_error_select), Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            val statusId = originalStatusList[selectedIndex].id
 
             val jobTitle = binding.jobTitleText.text.toString().trim()
             val jobUrl = binding.jobUrlText.text.toString().trim()
@@ -230,7 +252,7 @@ class AddApplicationActivity : AppCompatActivity(){
                 )
                 val intent = Intent(this, ApplicationDetailsActivity::class.java)
                 intent.putExtra("applicationID", applicationID)
-                Toast.makeText(this, "Application Updated", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, resources.getString(R.string.toast_application_updated), Toast.LENGTH_SHORT).show()
                 startActivity(intent)
                 finish()
             } else{
@@ -243,7 +265,7 @@ class AddApplicationActivity : AppCompatActivity(){
                     statusId,
                     notes
                 )
-                Toast.makeText(this, "Application Saved", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, resources.getString(R.string.toast_application_saved), Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, MainActivity::class.java))
                 finish()
             }

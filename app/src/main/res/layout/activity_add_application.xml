@@ -41,7 +41,7 @@
                     android:id="@+id/companyDropdown"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Escolha uma empresa"
+                    android:hint="@string/choose_company"
                     android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -50,6 +50,7 @@
                 android:id="@+id/companyBTN"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
+                android:contentDescription="@string/add_company_button"
                 android:src="@drawable/plus_sign"
                 android:background="@drawable/bg_rounded_box"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -72,7 +73,7 @@
                     android:id="@+id/jobTitleText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Job Title"/>
+                    android:hint="@string/job_title"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -90,7 +91,7 @@
                     android:id="@+id/jobUrlText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Job Url"/>
+                    android:hint="@string/job_url"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -108,7 +109,7 @@
                     android:id="@+id/jobLocationText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Job Location"/>
+                    android:hint="@string/job_location"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -128,7 +129,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="none"
                     android:focusable="false"
-                    android:hint="Application Date"/>
+                    android:hint="@string/application_date"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -152,7 +153,7 @@
                     android:gravity="top|start"
                     android:scrollbars="vertical"
                     android:overScrollMode="ifContentScrolls"
-                    android:hint="Notes"/>
+                    android:hint="@string/notes"/>
 
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -163,7 +164,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="15dp"
-                android:text="Status"
+                android:text="@string/status"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="@+id/statusLayout"
                 app:layout_constraintStart_toStartOf="parent"
@@ -186,7 +187,7 @@
                     android:id="@+id/statusDropdown"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Escolha o estado da candidatura"
+                    android:hint="@string/choose_application_status"
                     android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -197,7 +198,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="15dp"
-                android:text="Save Application"
+                android:text="@string/save_application"
                 android:textSize="20sp"
                 app:layout_constraintTop_toBottomOf="@+id/statusLayout"
                 />

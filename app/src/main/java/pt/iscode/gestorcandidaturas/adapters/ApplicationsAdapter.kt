@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import pt.iscode.gestorcandidaturas.R
+import pt.iscode.gestorcandidaturas.StatusTranslator
 import pt.iscode.gestorcandidaturas.interfaces.OnApplicationItemClickListener
 import pt.iscode.gestorcandidaturas.models.ApplicationsValues
 
@@ -30,7 +31,7 @@ class ApplicationsAdapter(
         fun bind(application: ApplicationsValues) {
             companyName.text = application.companyName
             jobTitle.text = application.jobTitle
-            statusName.text = application.status
+            statusName.text = StatusTranslator.translate(itemView.context, application.status)
             notes.text = application.notes
             applicationDate.text = application.applicationDate
 

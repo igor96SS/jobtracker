@@ -32,7 +32,6 @@
                 android:id="@+id/jobTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Frontend Developer"
                 android:textSize="28sp"
                 android:textStyle="bold"
                 android:textColor="?android:textColorPrimary" />
@@ -47,7 +46,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Company:"
+                    android:text="@string/company"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:layout_marginEnd="8dp" />
@@ -56,7 +55,6 @@
                     android:id="@+id/companyNameTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Google"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -70,7 +68,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="URL:"
+                    android:text="@string/url"
                     android:textStyle="bold"
                     android:textSize="18sp"
                     android:layout_marginEnd="8dp" />
@@ -79,7 +77,6 @@
                     android:id="@+id/jobUrlTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="https://example.com"
                     android:textSize="16sp"
                     android:autoLink="web"
                     />
@@ -89,7 +86,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Notes:"
+                android:text="@string/notes_in_details"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:layout_marginTop="16dp" />
@@ -98,7 +95,6 @@
                 android:id="@+id/notesTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Some notes about the position"
                 android:textSize="20sp"
                 android:layout_marginTop="4dp"
                 android:textColor="?android:textColorSecondary" />
@@ -113,17 +109,18 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Status:"
+                    android:text="@string/status_in_details"
                     android:textStyle="bold"
                     android:textSize="18sp"
                     android:layout_marginEnd="8dp" />
 
                 <TextView
                     android:id="@+id/jobStatusTextView"
-                    android:layout_width="100dp"
-                    android:layout_height="30dp"
-                    android:text="Interview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="6dp"
                     android:background="@drawable/bg_rounded_box"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -138,7 +135,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Job Location:"
+                    android:text="@string/job_location_in_details"
                     android:textStyle="bold"
                     android:textSize="18sp"
                     android:layout_marginEnd="8dp" />
@@ -147,7 +144,6 @@
                     android:id="@+id/jobLocationTextView"
                     android:layout_width="100dp"
                     android:layout_height="30dp"
-                    android:text="Lisbon"
                     android:textSize="18sp" />
             </LinearLayout>
 
@@ -161,7 +157,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Applied on:"
+                    android:text="@string/applied_on"
                     android:textStyle="bold"
                     android:textSize="18sp"
                     android:layout_marginEnd="8dp" />
@@ -170,7 +166,6 @@
                     android:id="@+id/appliedAtTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="14 May 2024"
                     android:textSize="20sp" />
             </LinearLayout>
         </LinearLayout>
