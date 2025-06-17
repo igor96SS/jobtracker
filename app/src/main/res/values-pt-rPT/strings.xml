@@ -10,10 +10,10 @@
     <string name="choose_application_status">Escolha o estado da candidatura</string>
     <string name="status">Estado</string>
     <string name="notes">Notas</string>
-    <string name="application_date">Data da Candidatura</string>
-    <string name="job_location">Localização do trabalho</string>
+    <string name="application_date">Data da Candidatura*</string>
+    <string name="job_location">Localização da vaga*</string>
     <string name="job_url">Site da Vaga</string>
-    <string name="job_title">Título da vaga</string>
+    <string name="job_title">Título da vaga*</string>
     <string name="choose_company">Escolha a empresa</string>
     <string name="add_company_button">botão para adicionar empresa</string>
     <string name="save_application">Guardar Candidatura</string>
@@ -22,7 +22,7 @@
     <string name="add_application">Adicionar Candidatura</string>
     <string name="image_for_empty_list">imagem lista vazia</string>
     <string name="new_company">Nova Empresa</string>
-    <string name="company_name">Nome da Empresa</string>
+    <string name="company_name">Nome da Empresa*</string>
     <string name="company_website">Site da Empresa</string>
     <string name="company_linkedin">LinkedIn da Empresa</string>
     <string name="back_button">Botão Retroceder</string>
