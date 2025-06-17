@@ -38,6 +38,9 @@ class ApplicationViewModel(
     private val _applicationDetails = MutableLiveData<ApplicationsValues>()
     val applicationDetail: LiveData<ApplicationsValues> get() = _applicationDetails
 
+    private val _updateStatus = MutableLiveData<Boolean>()
+    val updateStatus: LiveData<Boolean> = _updateStatus
+
     //region load data
     fun loadStatus(){
         viewModelScope.launch {
@@ -77,7 +80,8 @@ class ApplicationViewModel(
                 status = statusName,
                 notes = application.notes ?: "",
                 applicationDate = application.dateApplied.toString(),
-                applicationURL = application.applicationURL
+                applicationURL = application.applicationURL,
+                applicationLocation = application.location
             )
             _applicationDetails.postValue(applicationValues)
         }
@@ -99,7 +103,8 @@ class ApplicationViewModel(
                     status = statusName,
                     notes = app.notes ?: "",
                     applicationDate = app.dateApplied.toString(),
-                    applicationURL = app.applicationURL
+                    applicationURL = app.applicationURL,
+                    applicationLocation = app.location
                 )
             }
 
@@ -157,5 +162,29 @@ class ApplicationViewModel(
     }
 
     //endregion
+
+    fun updateApplication(id:Int, companyId: Int, jobTitle: String, location: String, dateApplied: String, applicationUrl: String, statusId: Int, notes: String){
+        viewModelScope.launch {
+            try {
+                val userFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+                val parsedDate = LocalDate.parse(dateApplied, userFormatter)
+
+                val application = Application(
+                    id = id,
+                    name = jobTitle,
+                    location = location,
+                    dateApplied = parsedDate,
+                    applicationURL = applicationUrl,
+                    statusID = statusId,
+                    companyID = companyId,
+                    notes = notes
+                )
+                applicationRepository.updateApplication(application)
+                _updateStatus.postValue(true)
+            } catch (e: Exception) {
+                _updateStatus.postValue(false)
+            }
+        }
+    }
 }
 

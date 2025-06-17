@@ -1,5 +1,6 @@
 package pt.iscode.gestorcandidaturas.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -45,7 +46,7 @@ class ApplicationDetailsActivity : AppCompatActivity() {
         reposInitialization()
 
         // get application id and send it to the function to populate UI
-        applicationID = intent.getIntExtra("applicationID", 0)
+        applicationID = intent.getIntExtra("applicationID", -1)
         populateData(applicationID)
 
 
@@ -55,12 +56,21 @@ class ApplicationDetailsActivity : AppCompatActivity() {
             title = "Your Applications",
             showEdit = true,
             showDelete = true,
-            onEditClick = {  },
+            onEditClick = { updateApplication(applicationID) },
             onDeleteClick = { deleteApplication()}
         )
 
     }
 
+    // Edit button action
+    private fun updateApplication(applicationId: Int){
+        val intent = Intent(this, AddApplicationActivity::class.java)
+        intent.putExtra("editApplicationID",applicationId)
+        startActivity(intent)
+        finish()
+    }
+
+    // Delete button action
     private fun deleteApplication() {
         AlertDialog.Builder(this)
             .setTitle("Delete Confirmation")
@@ -85,6 +95,7 @@ class ApplicationDetailsActivity : AppCompatActivity() {
             binding.appliedAtTextView.text = applicationValues.applicationDate
             binding.jobStatusTextView.text = applicationValues.status
             binding.notesTextView.text = applicationValues.notes
+            binding.jobLocationTextView.text = applicationValues.applicationLocation
         }
     }
 
