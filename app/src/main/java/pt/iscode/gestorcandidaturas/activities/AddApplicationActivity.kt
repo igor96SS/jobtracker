@@ -11,7 +11,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.widget.doOnTextChanged
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import pt.iscode.gestorcandidaturas.AppDatabase
 import pt.iscode.gestorcandidaturas.R
 import pt.iscode.gestorcandidaturas.StatusTranslator
@@ -85,6 +87,9 @@ class AddApplicationActivity : AppCompatActivity(){
             saveApplication(false)
         }
 
+        //Error listeners
+        setupErrorListeners()
+
     }
 
     private fun populateDataEdit(applicationId: Int) {
@@ -115,7 +120,6 @@ class AddApplicationActivity : AppCompatActivity(){
                 // Save status to when adapter is initialized
                 statusToSelectFromDb = StatusTranslator.translate(this, applicationValues.status)
             }
-
         }
     }
 
@@ -192,6 +196,16 @@ class AddApplicationActivity : AppCompatActivity(){
                 val companyName = dialogView.findViewById<TextInputEditText>(R.id.companyNameText)
                 val companyWebsite = dialogView.findViewById<TextInputEditText>(R.id.companyWebsiteText)
                 val companyLinkedin = dialogView.findViewById<TextInputEditText>(R.id.companyLinkedinText)
+                val companyNameLayout = dialogView.findViewById<TextInputLayout>(R.id.companyNameLayout)
+
+                // Form listener
+                companyName.doOnTextChanged { text, _, _, _ ->
+                    if (text.isNullOrBlank()) {
+                        companyNameLayout.error = getString(R.string.empty_text)
+                    } else {
+                        companyNameLayout.error = null
+                    }
+                }
 
                 val saveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE)
                 saveButton.setOnClickListener {
@@ -199,12 +213,20 @@ class AddApplicationActivity : AppCompatActivity(){
                     val website = companyWebsite.text?.toString()?.trim() ?: ""
                     val linkedin = companyLinkedin.text?.toString()?.trim()?: ""
 
-                    if (name.isNullOrEmpty()){
-                        companyName.error = resources.getString(R.string.company_error)
+                    // Form Validate
+                    var isValid = true
+                    if (companyName.text.isNullOrBlank()){
+                        companyNameLayout.error = resources.getString(R.string.empty_text)
+                        isValid = false
+                    }
+
+                    if (!isValid) {
                         return@setOnClickListener
                     }
 
-                    viewModel.addCompany(name,website, linkedin)
+                    if (name != null) {
+                        viewModel.addCompany(name,website, linkedin)
+                    }
                     viewModel.loadCompanies()
                     alertDialog.dismiss()
                 }
@@ -232,11 +254,43 @@ class AddApplicationActivity : AppCompatActivity(){
             }
             val statusId = originalStatusList[selectedIndex].id
 
+            var isValid = true
+            binding.jobTitleInput.error = null
+            binding.jobLocationInput.error = null
+            binding.dateLayout.error = null
+
+            if (binding.jobTitleText.text.isNullOrBlank()) {
+                binding.jobTitleInput.error = getString(R.string.empty_text)
+                isValid = false
+            } else {
+                binding.jobTitleInput.error = null
+            }
+
+            if (binding.jobLocationText.text.isNullOrBlank()) {
+                binding.jobLocationInput.error = getString(R.string.empty_text)
+                isValid = false
+            } else {
+                binding.jobLocationInput.error = null
+            }
+
+            if (binding.datePickerInput.text.isNullOrBlank()) {
+                binding.dateLayout.error = getString(R.string.empty_text)
+                isValid = false
+            } else {
+                binding.dateLayout.error = null
+            }
+
+            if (!isValid) {
+                return@setOnClickListener
+            }
+
+
             val jobTitle = binding.jobTitleText.text.toString().trim()
             val jobUrl = binding.jobUrlText.text.toString().trim()
             val jobLocation = binding.jobLocationText.text.toString().trim()
             val applicationDate = binding.datePickerInput.text.toString().trim()
             val notes = binding.notesInput.text.toString().trim()
+
 
             // Edit mode
             if (isEdit){
@@ -270,6 +324,32 @@ class AddApplicationActivity : AppCompatActivity(){
                 finish()
             }
         }
+    }
+    private fun setupErrorListeners() {
+        binding.jobTitleText.doOnTextChanged { text, _, _, _ ->
+            if (text.isNullOrBlank()) {
+                binding.jobTitleInput.error = getString(R.string.empty_text)
+            } else {
+                binding.jobTitleInput.error = null
+            }
+        }
+
+        binding.jobLocationText.doOnTextChanged { text, _, _, _ ->
+            if (text.isNullOrBlank()) {
+                binding.jobLocationInput.error = getString(R.string.empty_text)
+            } else {
+                binding.jobLocationInput.error = null
+            }
+        }
+
+        binding.datePickerInput.doOnTextChanged { text, _, _, _ ->
+            if (text.isNullOrBlank()) {
+                binding.dateLayout.error = getString(R.string.empty_text)
+            } else {
+                binding.dateLayout.error = null
+            }
+        }
+
     }
 
     private fun reposInitialization(){

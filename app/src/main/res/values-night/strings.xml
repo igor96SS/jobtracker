@@ -47,4 +47,5 @@
     <string name="status_refused">Refused</string>
     <string name="status_interview">Interview</string>
     <string name="status_waiting">Waiting</string>
+    <string name="empty_text">Required field</string>
 </resources>
