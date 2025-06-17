@@ -2,11 +2,11 @@ package pt.iscode.gestorcandidaturas.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import pt.iscode.gestorcandidaturas.AppDatabase
@@ -54,15 +54,31 @@ class MainActivity : AppCompatActivity(), OnApplicationItemClickListener {
 
         viewModel.applications.observe(this) { list ->
             adapter.submitList(list)
+            updateUI(list.isEmpty())
         }
 
         viewModel.loadAllData()
 
-        binding.mainFloatBTN.setOnClickListener {
-
+        binding.addApplicationButton.setOnClickListener {
             startActivity(Intent(this, AddApplicationActivity::class.java))
         }
 
+        binding.mainFloatBTN.setOnClickListener {
+            startActivity(Intent(this, AddApplicationActivity::class.java))
+        }
+
+    }
+
+    private fun updateUI(isEmpty: Boolean){
+        if (isEmpty){
+            binding.mainFloatBTN.visibility = View.GONE
+            binding.applicationsListRecyclerView.visibility = View.GONE
+            binding.centerContainer.visibility = View.VISIBLE
+        }else{
+            binding.mainFloatBTN.visibility = View.VISIBLE
+            binding.applicationsListRecyclerView.visibility = View.VISIBLE
+            binding.centerContainer.visibility = View.GONE
+        }
     }
 
     //Update recyclerView after changes
