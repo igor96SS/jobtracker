@@ -230,8 +230,6 @@ class AddApplicationActivity : AppCompatActivity(){
 
                     if (name != null) {
                         viewModel.addCompany(name,website, linkedin)
-                        viewModel.loadCompanies()
-                        populateCompanyDropDown()
                     }
                     alertDialog.dismiss()
                 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Application Manager</string>
+    <string name="app_name">Applications Manager</string>
     <string name="add_application_button">button to add application</string>
     <string name="company">Company:</string>
     <string name="url">URL:</string>

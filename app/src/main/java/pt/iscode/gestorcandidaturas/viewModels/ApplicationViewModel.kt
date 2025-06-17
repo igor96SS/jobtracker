@@ -145,6 +145,7 @@ class ApplicationViewModel(
             )
 
             companyRepository.insertCompany(company)
+            loadCompanies()
         }
     }
 
