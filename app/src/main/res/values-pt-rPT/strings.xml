@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GestorCandidaturas</string>
+    <string name="app_name">Gestor Candidaturas</string>
     <string name="add_application_button">botão para adicionar candidatura</string>
     <string name="company">Empresa:</string>
     <string name="url">Site:</string>
