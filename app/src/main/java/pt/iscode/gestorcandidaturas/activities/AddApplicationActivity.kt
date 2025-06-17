@@ -21,6 +21,8 @@ import pt.iscode.gestorcandidaturas.repositories.CompanyRepository
 import pt.iscode.gestorcandidaturas.repositories.StatusRepository
 import pt.iscode.gestorcandidaturas.viewModels.ApplicationViewModel
 import pt.iscode.gestorcandidaturas.viewModels.ApplicationViewModelFactory
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import java.util.Locale
 
 class AddApplicationActivity : AppCompatActivity(){
@@ -34,6 +36,12 @@ class AddApplicationActivity : AppCompatActivity(){
     private val viewModel: ApplicationViewModel by viewModels {
         ApplicationViewModelFactory(applicationRepository, companyRepository, statusRepository)
     }
+
+    private var applicationID: Int = -1
+
+    private lateinit var companyAdapter: ArrayAdapter<String>
+    private lateinit var statusAdapter: ArrayAdapter<String>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,9 +71,44 @@ class AddApplicationActivity : AppCompatActivity(){
         populateSpinners()
 
         //Save Application
-        saveApplication()
+        saveApplication(false)
+
+        //Edit Application mode
+        applicationID = intent.getIntExtra("editApplicationID", -1)
+        if (applicationID > -1){
+            populateDataEdit(applicationID)
+            binding.saveApplications.setText("Update Application")
+            saveApplication(true)
+        }
+
 
     }
+
+    private fun populateDataEdit(applicationId: Int) {
+        viewModel.loadApplicationById(applicationId)
+
+        viewModel.applicationDetail.observe(this) { applicationValues ->
+            binding.jobTitleText.setText(applicationValues.jobTitle)
+            binding.jobUrlText.setText(applicationValues.applicationURL)
+            val parsedDate = LocalDate.parse(applicationValues.applicationDate)
+            val userFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+            binding.datePickerInput.setText(parsedDate.format(userFormatter))
+            binding.notesInput.setText(applicationValues.notes)
+            binding.jobLocationText.setText(applicationValues.applicationLocation)
+
+            //Check if adapter is initialized
+            if (::companyAdapter.isInitialized) {
+                val index = companyAdapter.getPosition(applicationValues.companyName)
+                binding.companyDropdown.setText(companyAdapter.getItem(index), false)
+            }
+
+            if (::statusAdapter.isInitialized) {
+                val index = statusAdapter.getPosition(applicationValues.status)
+                binding.statusDropdown.setText(statusAdapter.getItem(index), false)
+            }
+        }
+    }
+
 
     private fun selectDate(){
         binding.datePickerInput.setOnClickListener {
@@ -92,7 +135,7 @@ class AddApplicationActivity : AppCompatActivity(){
             } else {
                 listOf("Add a Company") // ToDo change to a string.xml
             }
-            val companyAdapter = ArrayAdapter(
+            companyAdapter = ArrayAdapter(
                 this,
                 android.R.layout.simple_spinner_dropdown_item,
                 names
@@ -101,7 +144,7 @@ class AddApplicationActivity : AppCompatActivity(){
         }
 
         viewModel.statusesLiveData.observe(this) { statusList ->
-            val statusAdapter = ArrayAdapter(
+            statusAdapter = ArrayAdapter(
                 this,
                 android.R.layout.simple_spinner_dropdown_item,
                 statusList.map { it.name }
@@ -148,7 +191,8 @@ class AddApplicationActivity : AppCompatActivity(){
         }
     }
 
-    private fun saveApplication() {
+    //Save and Edit Application
+    private fun saveApplication(isEdit: Boolean) {
         binding.saveApplications.setOnClickListener {
             val companyName = binding.companyDropdown.text.toString()
             val companyList = viewModel.companiesLiveData.value
@@ -172,18 +216,37 @@ class AddApplicationActivity : AppCompatActivity(){
             val applicationDate = binding.datePickerInput.text.toString().trim()
             val notes = binding.notesInput.text.toString().trim()
 
-            viewModel.addApplications(
-                companyId,
-                jobTitle,
-                jobLocation,
-                applicationDate,
-                jobUrl,
-                statusId,
-                notes
-            )
-
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
+            // Edit mode
+            if (isEdit){
+                viewModel.updateApplication(
+                    applicationID,
+                    companyId,
+                    jobTitle,
+                    jobLocation,
+                    applicationDate,
+                    jobUrl,
+                    statusId,
+                    notes
+                )
+                val intent = Intent(this, ApplicationDetailsActivity::class.java)
+                intent.putExtra("applicationID", applicationID)
+                Toast.makeText(this, "Application Updated", Toast.LENGTH_SHORT).show()
+                startActivity(intent)
+                finish()
+            } else{
+                viewModel.addApplications(
+                    companyId,
+                    jobTitle,
+                    jobLocation,
+                    applicationDate,
+                    jobUrl,
+                    statusId,
+                    notes
+                )
+                Toast.makeText(this, "Application Saved", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            }
         }
     }
 
