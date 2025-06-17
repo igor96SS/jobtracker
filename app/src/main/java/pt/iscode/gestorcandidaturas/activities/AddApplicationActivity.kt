@@ -75,7 +75,8 @@ class AddApplicationActivity : AppCompatActivity(){
         selectDate()
 
         //Populating Spinners/DropDowns
-        populateSpinners()
+        populateCompanyDropDown()
+        populateStatusDropDown()
 
         // Verify edit mode
         applicationID = intent.getIntExtra("editApplicationID", -1)
@@ -123,7 +124,6 @@ class AddApplicationActivity : AppCompatActivity(){
         }
     }
 
-
     private fun selectDate(){
         binding.datePickerInput.setOnClickListener {
             val calendar = Calendar.getInstance()
@@ -142,7 +142,7 @@ class AddApplicationActivity : AppCompatActivity(){
         }
     }
 
-    private fun populateSpinners() {
+    private fun populateCompanyDropDown(){
         viewModel.companiesLiveData.observe(this) { companyList ->
             val names = if (companyList.isNotEmpty()) {
                 companyList.map { it.name }
@@ -155,8 +155,13 @@ class AddApplicationActivity : AppCompatActivity(){
                 names
             )
             binding.companyDropdown.setAdapter(companyAdapter)
+            companyAdapter.notifyDataSetChanged()
         }
 
+        viewModel.loadCompanies()
+    }
+
+    private fun populateStatusDropDown() {
         viewModel.statusesLiveData.observe(this) { statusList ->
             originalStatusList = statusList
             translatedStatusList = statusList.map { StatusTranslator.translate(this, it.name) }
@@ -179,7 +184,6 @@ class AddApplicationActivity : AppCompatActivity(){
         }
 
         // Calling data functions
-        viewModel.loadCompanies()
         viewModel.loadStatus()
     }
 
@@ -226,8 +230,9 @@ class AddApplicationActivity : AppCompatActivity(){
 
                     if (name != null) {
                         viewModel.addCompany(name,website, linkedin)
+                        viewModel.loadCompanies()
+                        populateCompanyDropDown()
                     }
-                    viewModel.loadCompanies()
                     alertDialog.dismiss()
                 }
             }
