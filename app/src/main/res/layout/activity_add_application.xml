@@ -8,7 +8,7 @@
     tools:context=".activities.AddApplicationActivity">
 
     <include
-        layout="@layout/navbar_base_layout"
+        layout="@layout/toolbar_base_layout"
         />
 
     <androidx.core.widget.NestedScrollView

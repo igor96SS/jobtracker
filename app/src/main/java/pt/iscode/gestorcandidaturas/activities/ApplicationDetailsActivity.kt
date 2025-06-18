@@ -74,7 +74,7 @@ class ApplicationDetailsActivity : AppCompatActivity() {
 
     // Delete button action
     private fun deleteApplication() {
-        AlertDialog.Builder(this)
+        AlertDialog.Builder(this, R.style.MyAlertDialogTheme)
             .setTitle(resources.getString(R.string.dialog_delete_title))
             .setMessage(resources.getString(R.string.dialog_delete_message))
             .setPositiveButton(resources.getString(R.string.dialog_confirm_button)) { _, _ ->

@@ -204,7 +204,7 @@ class AddApplicationActivity : AppCompatActivity(){
     private fun openCompanyDialog(){
         binding.companyBTN.setOnClickListener {
             val dialogView = layoutInflater.inflate(R.layout.layout_company_dialog, null)
-            val alertDialog = AlertDialog.Builder(this)
+            val alertDialog = AlertDialog.Builder(this, R.style.MyAlertDialogTheme)
                 .setView(dialogView)
                 .setNegativeButton(resources.getString(R.string.dialog_cancel_button),null)
                 .setPositiveButton(resources.getString(R.string.dialog_save_button),null)
