@@ -77,6 +77,7 @@ class ApplicationViewModel(
                 applicationId = application.id,
                 companyName = company.name,
                 jobTitle = application.name,
+                statusId = application.statusID,
                 status = statusName,
                 notes = application.notes ?: "",
                 applicationDate = application.dateApplied.toString(),
