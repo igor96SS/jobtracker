@@ -27,6 +27,11 @@
         <item name="android:textColorLink">@color/onBackground</item>
     </style>
 
+    <style name="MyAlertDialogTheme" parent="Theme.Material3.DayNight.Dialog.Alert">
+        <item name="colorPrimary">@color/colorSecondary</item>
+        <item name="colorSurface">@color/colorSurface</item>         <!-- Fundo do dialog -->
+        <item name="colorOnSurface">@color/onSurface</item>
+    </style>
 
 
 </resources>
