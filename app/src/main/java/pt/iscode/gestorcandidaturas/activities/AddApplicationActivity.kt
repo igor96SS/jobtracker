@@ -4,6 +4,7 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.icu.util.Calendar
 import android.os.Bundle
+import android.util.TypedValue
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -16,7 +17,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import pt.iscode.gestorcandidaturas.AppDatabase
 import pt.iscode.gestorcandidaturas.R
-import pt.iscode.gestorcandidaturas.StatusTranslator
+import pt.iscode.gestorcandidaturas.StatusManager
 import pt.iscode.gestorcandidaturas.ToolbarManager
 import pt.iscode.gestorcandidaturas.databinding.ActivityAddApplicationBinding
 import pt.iscode.gestorcandidaturas.entities.Status
@@ -115,14 +116,14 @@ class AddApplicationActivity : AppCompatActivity(){
             }
 
             if (::statusAdapter.isInitialized) {
-                val translatedStatus = StatusTranslator.translate(this, applicationValues.status)
+                val translatedStatus = StatusManager.translate(this, applicationValues.status)
                 val index = statusAdapter.getPosition(translatedStatus)
                 if (index >= 0) {
                     binding.statusDropdown.setText(statusAdapter.getItem(index), false)
                 }
             } else {
                 // Save status to when adapter is initialized
-                statusToSelectFromDb = StatusTranslator.translate(this, applicationValues.status)
+                statusToSelectFromDb = StatusManager.translate(this, applicationValues.status)
             }
         }
     }
@@ -139,8 +140,18 @@ class AddApplicationActivity : AppCompatActivity(){
                     val dateString = String.format(Locale.FRANCE,"%02d/%02d/%04d", selectedDay, selectedMonth + 1, selectedYear)
 
                     binding.datePickerInput.setText(dateString)
-            }, year, month, day
-            )
+            }, year, month, day)
+
+            datePickerDialog.setOnShowListener {
+                val typedValue = TypedValue()
+                theme.resolveAttribute(com.google.android.material.R.attr.colorSecondary, typedValue, true)
+                val color = typedValue.data
+
+                datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE)?.setTextColor(color)
+                datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE)?.setTextColor(color)
+            }
+
+
             datePickerDialog.show()
         }
     }
@@ -167,7 +178,7 @@ class AddApplicationActivity : AppCompatActivity(){
     private fun populateStatusDropDown() {
         viewModel.statusesLiveData.observe(this) { statusList ->
             originalStatusList = statusList
-            translatedStatusList = statusList.map { StatusTranslator.translate(this, it.name) }
+            translatedStatusList = statusList.map { StatusManager.translate(this, it.name) }
 
             statusAdapter = ArrayAdapter(
                 this,
