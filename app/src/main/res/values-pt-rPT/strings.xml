@@ -47,5 +47,6 @@
     <string name="status_interview">Entrevista</string>
     <string name="status_waiting">A aguardar resposta</string>
     <string name="empty_text">Campo Obrigatório</string>
+    <string name="job_applications_list">Lista de Candidaturas</string>
 
 </resources>

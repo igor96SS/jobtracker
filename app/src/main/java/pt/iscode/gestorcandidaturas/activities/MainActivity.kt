@@ -72,11 +72,11 @@ class MainActivity : AppCompatActivity(), OnApplicationItemClickListener {
     private fun updateUI(isEmpty: Boolean){
         if (isEmpty){
             binding.mainFloatBTN.visibility = View.GONE
-            binding.applicationsListRecyclerView.visibility = View.GONE
+            binding.linearLayout.visibility = View.GONE
             binding.centerContainer.visibility = View.VISIBLE
         }else{
             binding.mainFloatBTN.visibility = View.VISIBLE
-            binding.applicationsListRecyclerView.visibility = View.VISIBLE
+            binding.linearLayout.visibility = View.VISIBLE
             binding.centerContainer.visibility = View.GONE
         }
     }
