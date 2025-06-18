@@ -2,7 +2,35 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.GestorCandidaturas" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- Primary colors -->
+        <item name="colorPrimary">@color/light_colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/light_colorPrimaryVariant</item>
+        <item name="colorOnPrimary">@color/light_onPrimary</item>
+
+        <!-- Secondary colors -->
+        <item name="colorSecondary">@color/light_colorSecondary</item>
+        <item name="colorSecondaryVariant">@color/light_colorSecondaryVariant</item>
+        <item name="colorOnSecondary">@color/light_onSecondary</item>
+
+        <!-- Background and surface -->
+        <item name="colorOnBackground">@color/light_onBackground</item>
+        <item name="colorSurface">@color/light_colorSurface</item>
+        <item name="colorOnSurface">@color/light_onSurface</item>
+
+        <!-- Error colors -->
+        <item name="colorError">@color/light_colorError</item>
+        <item name="colorOnError">@color/light_onError</item>
+
+        <item name="android:windowBackground">@color/light_colorBackground</item>
+        <item name="android:navigationBarColor">@color/light_colorBackground</item>
+        <item name="android:statusBarColor">@color/light_colorPrimaryVariant</item>
+        <item name="android:textColorLink">@color/light_onBackground</item>
+    </style>
+
+    <style name="MyAlertDialogTheme" parent="Theme.Material3.DayNight.Dialog.Alert">
+        <item name="colorPrimary">@color/light_colorSecondary</item>
+        <item name="colorSurface">@color/light_colorSurface</item>         <!-- Fundo do dialog -->
+        <item name="colorOnSurface">@color/light_onSurface</item>
     </style>
 
     <style name="Theme.GestorCandidaturas" parent="Base.Theme.GestorCandidaturas" />

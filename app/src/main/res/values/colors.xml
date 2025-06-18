@@ -22,4 +22,21 @@
     <color name="onBackground">#CFD8E9</color>
     <color name="onSurface">#D4DDEA</color>
     <color name="onError">#000000</color>
+
+    <!-- Light theme colors -->
+    <color name="light_colorPrimary">#6C86A0</color>
+    <color name="light_colorPrimaryVariant">#607D99</color>
+    <color name="light_colorSecondary">#7A97B5</color>
+    <color name="light_colorSecondaryVariant">#A0B8D1</color>
+    <color name="light_colorBackground">#E8F0F8</color>
+    <color name="light_colorSurface">#E9F1FA</color>
+    <color name="light_colorError">#B00020</color>
+
+    <color name="light_onPrimary">#FFFFFF</color>
+    <color name="light_onSecondary">#1A2E44</color>
+    <color name="light_onBackground">#0F1F2E</color>
+    <color name="light_onSurface">#1C2E44</color>
+    <color name="light_onError">#FFFFFF</color>
+
+
 </resources>
