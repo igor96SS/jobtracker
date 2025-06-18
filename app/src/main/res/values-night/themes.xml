@@ -2,6 +2,31 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.GestorCandidaturas" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <!-- Primary colors -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+        <item name="colorOnPrimary">@color/onPrimary</item>
+
+        <!-- Secondary colors -->
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorSecondaryVariant">@color/colorSecondaryVariant</item>
+        <item name="colorOnSecondary">@color/onSecondary</item>
+
+        <!-- Background and surface -->
+        <item name="colorOnBackground">@color/onBackground</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnSurface">@color/onSurface</item>
+
+        <!-- Error colors -->
+        <item name="colorError">@color/colorError</item>
+        <item name="colorOnError">@color/onError</item>
+
+        <item name="android:windowBackground">@color/colorBackground</item>
+        <item name="android:navigationBarColor">@color/colorBackground</item>
+        <item name="android:statusBarColor">@color/colorPrimaryVariant</item>
+        <item name="android:textColorLink">@color/onBackground</item>
     </style>
+
+
+
 </resources>
