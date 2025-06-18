@@ -92,10 +92,19 @@ class ApplicationDetailsActivity : AppCompatActivity() {
         viewModel.applicationDetail.observe(this) { applicationValues ->
             binding.jobTitleTextView.text = applicationValues.jobTitle
             binding.companyNameTextView.text = applicationValues.companyName
+
+            binding.urlHeader.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_url_link, 0, 0, 0)
             binding.jobUrlTextView.text = applicationValues.applicationURL
+
+            binding.appliedAtTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_calendar, 0, 0, 0)
             binding.appliedAtTextView.text = applicationValues.applicationDate
+
             binding.jobStatusTextView.text = StatusTranslator.translate(this, applicationValues.status)
+
+            binding.notesHeader.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_note, 0, 0, 0)
             binding.notesTextView.text = applicationValues.notes
+
+            binding.jobLocationTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_location_pin, 0, 0, 0)
             binding.jobLocationTextView.text = applicationValues.applicationLocation
         }
     }

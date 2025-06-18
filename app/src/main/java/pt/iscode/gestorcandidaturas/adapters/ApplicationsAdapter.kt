@@ -35,7 +35,7 @@ class ApplicationsAdapter(
             statusName.text = StatusTranslator.translate(itemView.context, application.status)
             notes.text = application.notes
             applicationDate.text = application.applicationDate
-            jobLocation.setCompoundDrawablesWithIntrinsicBounds(R.drawable.location_pin, 0, 0, 0)
+            jobLocation.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_location_pin, 0, 0, 0)
             jobLocation.text = application.applicationLocation
 
             itemView.setOnClickListener {
