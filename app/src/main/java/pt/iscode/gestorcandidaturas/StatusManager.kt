@@ -12,11 +12,11 @@ object StatusManager {
         "Waiting" to R.string.status_waiting
     )
 
-    private val colorMap: Map<String, Int> = mapOf(
-        "Applied" to R.color.status_blue,
-        "Refused" to R.color.status_red,
-        "Interview" to R.color.status_yellow,
-        "Waiting" to R.color.status_green
+    private val colorMap: Map<Int, Int> = mapOf(
+        1 to R.color.status_blue,
+        2 to R.color.status_red,
+        3 to R.color.status_yellow,
+        4 to R.color.status_green
     )
 
     fun translate(context: Context, statusName: String): String {
@@ -24,8 +24,8 @@ object StatusManager {
         return context.getString(resId)
     }
 
-    fun getStatusColor(context: Context, statusName: String): Int {
-        val colorResId = colorMap[statusName] ?: R.color.status_gray
+    fun getStatusColor(context: Context, statusId: Int): Int {
+        val colorResId = colorMap[statusId] ?: R.color.status_gray
         return ContextCompat.getColor(context, colorResId)
     }
 }

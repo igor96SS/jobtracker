@@ -43,7 +43,7 @@ class ApplicationsAdapter(
             // Copy drawable so it does not change the original background
             // for reuse purposes
             val originalDrawable = ContextCompat.getDrawable(itemView.context, R.drawable.bg_rounded_box)?.mutate()
-            val color = StatusManager.getStatusColor(itemView.context, statusName.text.toString())
+            val color = StatusManager.getStatusColor(itemView.context, application.statusId!!)
             originalDrawable?.setTint(color)
             statusName.background = originalDrawable
 

@@ -103,7 +103,7 @@ class ApplicationDetailsActivity : AppCompatActivity() {
             // Copy drawable so it does not change the original background
             // for reuse purposes
             val originalDrawable = ContextCompat.getDrawable(this, R.drawable.bg_rounded_box)?.mutate()
-            val color = StatusManager.getStatusColor(this, applicationValues.status)
+            val color = StatusManager.getStatusColor(this, applicationValues.statusId!!)
             originalDrawable?.setTint(color)
             binding.jobStatusTextView.background = originalDrawable
             binding.jobStatusTextView.text = StatusManager.translate(this, applicationValues.status)
