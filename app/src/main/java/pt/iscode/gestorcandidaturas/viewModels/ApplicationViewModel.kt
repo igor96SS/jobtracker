@@ -95,11 +95,13 @@ class ApplicationViewModel(
 
             val valuesList = apps.map { app ->
                 val companyName = companies.find { it.id == app.companyID }?.name ?: "Unknown Company"
+                val statusId = statuses.find { it.id == app.statusID }?.id ?:0
                 val statusName = statuses.find { it.id == app.statusID }?.name ?: "Unknown Status"
                 ApplicationsValues(
                     applicationId = app.id,
                     companyName = companyName,
                     jobTitle = app.name,
+                    statusId = statusId,
                     status = statusName,
                     notes = app.notes ?: "",
                     applicationDate = app.dateApplied.toString(),

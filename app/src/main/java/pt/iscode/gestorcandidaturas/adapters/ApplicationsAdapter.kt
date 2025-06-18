@@ -1,9 +1,11 @@
 package pt.iscode.gestorcandidaturas.adapters
 
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import pt.iscode.gestorcandidaturas.R
 import pt.iscode.gestorcandidaturas.StatusTranslator
@@ -37,6 +39,15 @@ class ApplicationsAdapter(
             applicationDate.text = application.applicationDate
             jobLocation.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_location_pin, 0, 0, 0)
             jobLocation.text = application.applicationLocation
+
+            val color = when (application.statusId) {
+                1 -> ContextCompat.getColor(itemView.context, R.color.status_blue)
+                2 -> ContextCompat.getColor(itemView.context, R.color.status_red)
+                3 -> ContextCompat.getColor(itemView.context, R.color.status_yellow)
+                4 -> ContextCompat.getColor(itemView.context, R.color.status_green)
+                else -> ContextCompat.getColor(itemView.context, R.color.status_gray)
+            }
+            statusName.backgroundTintList = ColorStateList.valueOf(color)
 
             itemView.setOnClickListener {
                 listener.onApplicationItemClick(application.applicationId)

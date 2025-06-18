@@ -66,6 +66,7 @@
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="6dp"
                 android:textSize="15sp"
+                android:textStyle="bold"
                 android:background="@drawable/bg_rounded_box"
                 android:textColor="@android:color/white" />
 
