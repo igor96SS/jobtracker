@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import pt.iscode.gestorcandidaturas.R
-import pt.iscode.gestorcandidaturas.StatusTranslator
+import pt.iscode.gestorcandidaturas.StatusManager
 import pt.iscode.gestorcandidaturas.interfaces.OnApplicationItemClickListener
 import pt.iscode.gestorcandidaturas.models.ApplicationsValues
 
@@ -34,20 +34,18 @@ class ApplicationsAdapter(
         fun bind(application: ApplicationsValues) {
             companyName.text = application.companyName
             jobTitle.text = application.jobTitle
-            statusName.text = StatusTranslator.translate(itemView.context, application.status)
+            statusName.text = StatusManager.translate(itemView.context, application.status)
             notes.text = application.notes
             applicationDate.text = application.applicationDate
             jobLocation.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_location_pin, 0, 0, 0)
             jobLocation.text = application.applicationLocation
 
-            val color = when (application.statusId) {
-                1 -> ContextCompat.getColor(itemView.context, R.color.status_blue)
-                2 -> ContextCompat.getColor(itemView.context, R.color.status_red)
-                3 -> ContextCompat.getColor(itemView.context, R.color.status_yellow)
-                4 -> ContextCompat.getColor(itemView.context, R.color.status_green)
-                else -> ContextCompat.getColor(itemView.context, R.color.status_gray)
-            }
-            statusName.backgroundTintList = ColorStateList.valueOf(color)
+            // Copy drawable so it does not change the original background
+            // for reuse purposes
+            val originalDrawable = ContextCompat.getDrawable(itemView.context, R.drawable.bg_rounded_box)?.mutate()
+            val color = StatusManager.getStatusColor(itemView.context, statusName.text.toString())
+            originalDrawable?.setTint(color)
+            statusName.background = originalDrawable
 
             itemView.setOnClickListener {
                 listener.onApplicationItemClick(application.applicationId)
