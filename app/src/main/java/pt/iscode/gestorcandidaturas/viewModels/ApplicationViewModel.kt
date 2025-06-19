@@ -41,6 +41,13 @@ class ApplicationViewModel(
     private val _updateStatus = MutableLiveData<Boolean>()
     val updateStatus: LiveData<Boolean> = _updateStatus
 
+
+    //check if company exists
+    suspend fun companyExists(name: String): Boolean {
+        return companyRepository.companyExists(name)
+    }
+
+
     //region load data
     fun loadStatus(){
         viewModelScope.launch {

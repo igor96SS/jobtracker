@@ -16,4 +16,8 @@ class CompanyRepository(private val companyDao: CompanyDAO) {
     suspend fun getCompanyById(id: Int): Company{
         return companyDao.getCompanyByID(id)
     }
+
+    suspend fun companyExists(name: String): Boolean{
+        return companyDao.companyExists(name)!= null
+    }
 }

@@ -13,8 +13,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.widget.doOnTextChanged
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.coroutines.launch
 import pt.iscode.gestorcandidaturas.AppDatabase
 import pt.iscode.gestorcandidaturas.R
 import pt.iscode.gestorcandidaturas.StatusManager
@@ -242,10 +244,21 @@ class AddApplicationActivity : AppCompatActivity(){
                         return@setOnClickListener
                     }
 
-                    if (name != null) {
-                        viewModel.addCompany(name,website, linkedin)
+                    if (name!= null){
+                        // Check if company exists
+                        lifecycleScope.launch {
+                            val exists = viewModel.companyExists(name)
+
+                            if (exists) {
+                                companyNameLayout.error = getString(R.string.existing_company)
+                                return@launch
+                            }
+
+                            viewModel.addCompany(name, website, linkedin)
+                            alertDialog.dismiss()
+                        }
                     }
-                    alertDialog.dismiss()
+
                 }
             }
             alertDialog.show()

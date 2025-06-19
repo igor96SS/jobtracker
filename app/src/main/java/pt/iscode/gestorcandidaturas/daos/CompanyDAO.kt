@@ -16,6 +16,9 @@ interface CompanyDAO {
     @Query("SELECT * FROM company WHERE id= :id")
     suspend fun getCompanyByID(id: Int): Company
 
+    @Query("SELECT name FROM company WHERE LOWER(name) = LOWER(:name) LIMIT 1")
+    suspend fun companyExists(name: String): String?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(company: Company)
 
