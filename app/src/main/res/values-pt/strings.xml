@@ -50,5 +50,6 @@
     <string name="job_applications_list">Lista de Candidaturas</string>
     <string name="existing_company">Empresa já existe</string>
     <string name="loading">A Carregar…</string>
+    <string name="toast_company_success">Empresa Adicionada com sucesso</string>
 
 </resources>

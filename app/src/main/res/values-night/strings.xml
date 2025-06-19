@@ -50,5 +50,6 @@
     <string name="empty_text">Required field</string>
     <string name="job_applications_list">Job Applications List</string>
     <string name="existing_company">Company already exists</string>
-    <string name="loading">Loading...</string>
+    <string name="loading">Loading…</string>
+    <string name="toast_company_success">Company saved successfully</string>
 </resources>

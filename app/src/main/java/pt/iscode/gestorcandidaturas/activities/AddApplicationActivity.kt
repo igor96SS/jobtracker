@@ -258,7 +258,8 @@ class AddApplicationActivity : AppCompatActivity(){
                             alertDialog.dismiss()
                         }
                     }
-
+                    Toast.makeText(this,
+                        getString(R.string.toast_company_success), Toast.LENGTH_SHORT).show()
                 }
             }
             alertDialog.show()
