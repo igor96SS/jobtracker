@@ -2,6 +2,8 @@ package pt.iscode.gestorcandidaturas.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.delay
 import pt.iscode.gestorcandidaturas.AppDatabase
 import pt.iscode.gestorcandidaturas.R
 import pt.iscode.gestorcandidaturas.adapters.ApplicationsAdapter
@@ -53,8 +56,14 @@ class MainActivity : AppCompatActivity(), OnApplicationItemClickListener {
         binding.applicationsListRecyclerView.adapter = adapter
 
         viewModel.applications.observe(this) { list ->
-            adapter.submitList(list)
-            updateUI(list.isEmpty())
+
+            // 500ms delay for loading to appear
+            Handler(Looper.getMainLooper()).postDelayed({
+                adapter.submitList(list)
+                binding.progressBar.visibility = View.GONE
+                binding.loadingTextView.visibility = View.GONE
+                updateUI(list.isEmpty())
+            }, 500)
         }
 
         viewModel.loadAllData()
