@@ -7,8 +7,8 @@
     <string name="status_in_details">Estado:</string>
     <string name="job_location_in_details">Localização da vaga:</string>
     <string name="applied_on">Candidatou-se em:</string>
-    <string name="choose_application_status">Escolha o estado da candidatura*</string>
-    <string name="status">Estado</string>
+    <string name="choose_application_status">Estado da Candidatura*</string>
+    <string name="status">Estado*</string>
     <string name="notes">Notas</string>
     <string name="application_date">Data da Candidatura*</string>
     <string name="job_location">Localização da vaga*</string>
