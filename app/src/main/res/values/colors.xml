@@ -26,7 +26,7 @@
     <!-- Light theme colors -->
     <color name="light_colorPrimary">#6C86A0</color>
     <color name="light_colorPrimaryVariant">#607D99</color>
-    <color name="light_colorSecondary">#7A97B5</color>
+    <color name="light_colorSecondary">#6E87A3</color>
     <color name="light_colorSecondaryVariant">#A0B8D1</color>
     <color name="light_colorBackground">#E8F0F8</color>
     <color name="light_colorSurface">#E9F1FA</color>
