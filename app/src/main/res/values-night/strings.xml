@@ -8,14 +8,14 @@
     <string name="status_in_details">Status:</string>
     <string name="job_location_in_details">Job Location:</string>
     <string name="applied_on">Applied on:</string>
-    <string name="choose_application_status">Choose Application Status</string>
+    <string name="choose_application_status">Choose Application Status*</string>
     <string name="status">Status</string>
     <string name="notes">Notes</string>
     <string name="application_date">Application Date*</string>
     <string name="job_location">Job Location*</string>
     <string name="job_url">Job Url</string>
     <string name="job_title">Job Title*</string>
-    <string name="choose_company">Choose Company</string>
+    <string name="choose_company">Choose Company*</string>
     <string name="add_company_button">add company button</string>
     <string name="save_application">Save Application</string>
     <string name="no_applications_yet">No applications yet</string>
