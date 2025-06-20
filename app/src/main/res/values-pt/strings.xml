@@ -31,8 +31,8 @@
     <string name="dialog_cancel_button">Cancelar</string>
     <string name="dialog_confirm_button">Sim</string>
     <string name="dialog_save_button">Guardar</string>
-    <string name="dialog_delete_title">Confirmação de apagar</string>
-    <string name="dialog_delete_message">Tem a certesa que deseja apagar?</string>
+    <string name="dialog_delete_title">A Eliminar candidatura</string>
+    <string name="dialog_delete_message">Tem a certeza que deseja eliminar?</string>
     <string name="dialog_delete_toast_confirmation">Candidatura apagada</string>
     <string name="toolbar_title">As tuas Candidaturas</string>
     <string name="update_application_button">Atualizar Candidatura</string>
