@@ -335,6 +335,20 @@ class AddApplicationActivity : AppCompatActivity(){
                     statusId,
                     notes
                 )
+
+                viewModel.updateApplicationStatus.observe(this) { success ->
+                    if (success) {
+                        Toast.makeText(this, getString(R.string.toast_application_updated), Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, ApplicationDetailsActivity::class.java)
+                        intent.putExtra("applicationID", applicationID)
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        Toast.makeText(this, getString(R.string.toast_application_update_failed), Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+
                 val intent = Intent(this, ApplicationDetailsActivity::class.java)
                 intent.putExtra("applicationID", applicationID)
                 Toast.makeText(this, resources.getString(R.string.toast_application_updated), Toast.LENGTH_SHORT).show()

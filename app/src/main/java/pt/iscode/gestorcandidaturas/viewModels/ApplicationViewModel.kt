@@ -38,8 +38,8 @@ class ApplicationViewModel(
     private val _applicationDetails = MutableLiveData<ApplicationsValues>()
     val applicationDetail: LiveData<ApplicationsValues> get() = _applicationDetails
 
-    private val _updateStatus = MutableLiveData<Boolean>()
-    val updateStatus: LiveData<Boolean> = _updateStatus
+    private val _updateApplicationStatus = MutableLiveData<Boolean>()
+    val updateApplicationStatus: LiveData<Boolean> = _updateApplicationStatus
 
 
     //check if company exists
@@ -191,9 +191,9 @@ class ApplicationViewModel(
                     notes = notes
                 )
                 applicationRepository.updateApplication(application)
-                _updateStatus.postValue(true)
+                _updateApplicationStatus.postValue(true)
             } catch (e: Exception) {
-                _updateStatus.postValue(false)
+                _updateApplicationStatus.postValue(false)
             }
         }
     }

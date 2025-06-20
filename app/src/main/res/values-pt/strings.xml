@@ -42,6 +42,7 @@
     <string name="status_error_select">Seleciona um estado válido</string>
     <string name="toast_application_updated">Candidatura Atualizada</string>
     <string name="toast_application_saved">Candidatura Guardada</string>
+    <string name="toast_application_update_failed">Atualização da candidatura falhou</string>
     <string name="status_applied">Candidatura enviada</string>
     <string name="status_refused">Recusado</string>
     <string name="status_interview">Entrevista</string>
