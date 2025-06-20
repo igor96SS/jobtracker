@@ -7,6 +7,9 @@ import android.os.Bundle
 import android.util.TypedValue
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import android.window.OnBackInvokedCallback
+import android.window.OnBackInvokedDispatcher
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -66,11 +69,6 @@ class AddApplicationActivity : AppCompatActivity(){
             insets
         }
 
-        //Initializing toolbar
-        ToolbarManager(this).setup(
-            title = resources.getString(R.string.toolbar_title),
-        )
-
         //Initializing Repositories
         reposInitialization()
 
@@ -94,9 +92,35 @@ class AddApplicationActivity : AppCompatActivity(){
             saveApplication(false)
         }
 
+        //Initializing toolbar
+        ToolbarManager(this).setup(
+            title = resources.getString(R.string.toolbar_title),
+            onBackClick = {backButtonClick(applicationID)}
+        )
+
+        // system back button behavior
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                backButtonClick(applicationID)
+            }
+        })
+
+
         //Error listeners
         setupErrorListeners()
 
+    }
+
+    // back button toolbar behavior
+    private fun backButtonClick(applicationId: Int){
+        if (applicationId > -1){
+            val intent = Intent(this, ApplicationDetailsActivity::class.java)
+            intent.putExtra("applicationID",applicationId)
+            startActivity(intent)
+            finish()
+        }else{
+            onBackPressedDispatcher.onBackPressed()
+        }
     }
 
     private fun populateDataEdit(applicationId: Int) {

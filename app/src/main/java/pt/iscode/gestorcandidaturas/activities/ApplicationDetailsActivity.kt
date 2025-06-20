@@ -52,16 +52,20 @@ class ApplicationDetailsActivity : AppCompatActivity() {
         populateData(applicationID)
 
 
-
         //Initializing toolbar
         ToolbarManager(this).setup(
             title = resources.getString(R.string.toolbar_title),
             showEdit = true,
             showDelete = true,
             onEditClick = { updateApplication(applicationID) },
-            onDeleteClick = { deleteApplication()}
+            onDeleteClick = { deleteApplication()},
+            onBackClick = {backButtonClick()}
         )
 
+    }
+
+    private fun backButtonClick(){
+        onBackPressedDispatcher.onBackPressed()
     }
 
     // Edit button action
