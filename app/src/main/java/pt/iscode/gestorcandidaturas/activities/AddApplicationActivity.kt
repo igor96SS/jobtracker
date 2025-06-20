@@ -7,8 +7,6 @@ import android.os.Bundle
 import android.util.TypedValue
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import android.window.OnBackInvokedCallback
-import android.window.OnBackInvokedDispatcher
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
