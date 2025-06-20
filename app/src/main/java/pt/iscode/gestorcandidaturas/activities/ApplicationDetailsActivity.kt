@@ -51,7 +51,6 @@ class ApplicationDetailsActivity : AppCompatActivity() {
         applicationID = intent.getIntExtra("applicationID", -1)
         populateData(applicationID)
 
-
         //Initializing toolbar
         ToolbarManager(this).setup(
             title = resources.getString(R.string.toolbar_title),

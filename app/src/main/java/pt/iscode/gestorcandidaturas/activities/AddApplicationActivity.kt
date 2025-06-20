@@ -103,7 +103,6 @@ class AddApplicationActivity : AppCompatActivity(){
             }
         })
 
-
         //Error listeners
         setupErrorListeners()
 
@@ -117,7 +116,7 @@ class AddApplicationActivity : AppCompatActivity(){
             startActivity(intent)
             finish()
         }else{
-            onBackPressedDispatcher.onBackPressed()
+            finish()
         }
     }
 
@@ -295,6 +294,7 @@ class AddApplicationActivity : AppCompatActivity(){
             val companyList = viewModel.companiesLiveData.value
             val companyId = companyList?.find {it.name == companyName}?.id
                 ?: run {
+                    binding.companyLayout.error = resources.getString(R.string.company_error_select)
                     Toast.makeText(this, resources.getString(R.string.company_error_select), Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
@@ -302,9 +302,11 @@ class AddApplicationActivity : AppCompatActivity(){
             val selectedStatusText = binding.statusDropdown.text.toString()
             val selectedIndex = translatedStatusList.indexOf(selectedStatusText)
             if (selectedIndex == -1) {
+                binding.statusLayout.error = resources.getString(R.string.status_error_select)
                 Toast.makeText(this, resources.getString(R.string.status_error_select), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+
             val statusId = originalStatusList[selectedIndex].id
 
             var isValid = true
@@ -414,6 +416,24 @@ class AddApplicationActivity : AppCompatActivity(){
                 binding.dateLayout.error = getString(R.string.empty_text)
             } else {
                 binding.dateLayout.error = null
+            }
+        }
+
+        binding.companyDropdown.doOnTextChanged { text, _, _, _ ->
+            if (text.isNullOrBlank()){
+                binding.companyLayout.error = resources.getString(R.string.company_error_select)
+            }
+            else{
+                binding.companyLayout.error = null
+            }
+        }
+
+        binding.statusDropdown.doOnTextChanged { text, _, _, _ ->
+            if (text.isNullOrBlank()){
+                binding.statusLayout.error = resources.getString(R.string.status_error_select)
+            }
+            else{
+                binding.statusLayout.error = null
             }
         }
 
