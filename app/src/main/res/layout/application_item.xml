@@ -27,21 +27,24 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="20sp"/>
 
             <TextView
                 android:id="@+id/applicationDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="15sp"/>
         </LinearLayout>
 
-        <!-- Job Possition -->
+        <!-- Job Position -->
         <TextView
             android:id="@+id/jobPosition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
+            android:textColor="?attr/colorOnSurface"
             android:layout_marginTop="8dp"
             android:textStyle="italic|bold" />
 
@@ -51,6 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="13sp" />
 
         <LinearLayout
@@ -86,7 +90,7 @@
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="6dp"
                 android:textSize="15sp"
-                android:textColor="@android:color/white" />
+                android:textColor="?attr/colorOnSurface" />
         </LinearLayout>
 
 

@@ -10,7 +10,7 @@
     <color name="blue_theme">#0E1A27</color>
 
     <!-- Dark colors based on #182c40 -->
-    <color name="colorPrimary">#182c40</color>
+    <color name="colorPrimary">#2a4059</color>
     <color name="colorPrimaryVariant">#122230</color>
     <color name="colorSecondary">#3d5c7d</color>
     <color name="colorSecondaryVariant">#20344e</color>

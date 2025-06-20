@@ -31,6 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -39,6 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
+                android:textColor="?attr/colorOnSurface"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="4dp" />
 
@@ -62,6 +64,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/job_location_in_details"
                         android:textStyle="bold"
+                        android:textColor="?attr/colorOnSurface"
                         android:layout_marginEnd="8dp" />
 
                     <TextView
@@ -69,6 +72,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
+                        android:textColor="?attr/colorOnSurface"
                         android:layout_marginTop="2dp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -94,6 +98,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/url"
                         android:textStyle="bold"
+                        android:textColor="?attr/colorOnSurface"
                         android:gravity="center_vertical"
                         android:layout_marginEnd="8dp" />
 
@@ -102,6 +107,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:autoLink="web"
+                        android:textColor="?attr/colorOnSurface"
                         android:gravity="center_vertical"
                         android:textSize="16sp" />
                 </LinearLayout>
@@ -128,6 +134,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/notes_in_details"
                         android:textStyle="bold"
+                        android:textColor="?attr/colorOnSurface"
                         android:gravity="center_vertical"
                         android:textSize="16sp" />
 
@@ -137,7 +144,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:textSize="16sp"
-                        android:textColor="?android:textColorSecondary" />
+                        android:textColor="?attr/colorOnSurface"
+                        />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -162,6 +170,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/status_in_details"
                         android:textStyle="bold"
+                        android:textColor="?attr/colorOnSurface"
                         android:textSize="16sp" />
 
                     <TextView
@@ -199,6 +208,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/applied_on"
                         android:textStyle="bold"
+                        android:textColor="?attr/colorOnSurface"
                         android:textSize="14sp" />
 
                     <TextView
@@ -209,7 +219,7 @@
                         android:gravity="center_vertical"
                         android:layout_marginTop="4dp"
                         android:layout_marginStart="5dp"
-                        android:textColor="?android:textColorSecondary" />
+                        android:textColor="?attr/colorOnSurface" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
