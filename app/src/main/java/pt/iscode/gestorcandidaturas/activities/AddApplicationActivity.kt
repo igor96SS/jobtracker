@@ -54,6 +54,8 @@ class AddApplicationActivity : AppCompatActivity(){
     private lateinit var originalStatusList: List<Status>
     private var statusToSelectFromDb: String? = null
 
+    private var newAddedCompany: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddApplicationBinding.inflate(layoutInflater)
@@ -193,6 +195,15 @@ class AddApplicationActivity : AppCompatActivity(){
             )
             binding.companyDropdown.setAdapter(companyAdapter)
             companyAdapter.notifyDataSetChanged()
+
+            // select new added company
+            newAddedCompany?.let { name ->
+                val position = names.indexOf(name)
+                if (position != -1) {
+                    binding.companyDropdown.setText(name, false)
+                }
+                newAddedCompany = null // reset variable
+            }
         }
 
         viewModel.loadCompanies()
@@ -276,6 +287,7 @@ class AddApplicationActivity : AppCompatActivity(){
                             }
 
                             viewModel.addCompany(name, website, linkedin)
+                            newAddedCompany = name
                             alertDialog.dismiss()
                         }
                     }
