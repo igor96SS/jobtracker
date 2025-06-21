@@ -6,11 +6,12 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import pt.iscode.gestorcandidaturas.AppDatabase
 import pt.iscode.gestorcandidaturas.R
-import pt.iscode.gestorcandidaturas.StatusTranslator
+import pt.iscode.gestorcandidaturas.StatusManager
 import pt.iscode.gestorcandidaturas.ToolbarManager
 import pt.iscode.gestorcandidaturas.databinding.ActivityApplicationDetailsBinding
 import pt.iscode.gestorcandidaturas.repositories.ApplicationRepository
@@ -50,17 +51,20 @@ class ApplicationDetailsActivity : AppCompatActivity() {
         applicationID = intent.getIntExtra("applicationID", -1)
         populateData(applicationID)
 
-
-
         //Initializing toolbar
         ToolbarManager(this).setup(
             title = resources.getString(R.string.toolbar_title),
             showEdit = true,
             showDelete = true,
             onEditClick = { updateApplication(applicationID) },
-            onDeleteClick = { deleteApplication()}
+            onDeleteClick = { deleteApplication()},
+            onBackClick = {backButtonClick()}
         )
 
+    }
+
+    private fun backButtonClick(){
+        onBackPressedDispatcher.onBackPressed()
     }
 
     // Edit button action
@@ -73,7 +77,7 @@ class ApplicationDetailsActivity : AppCompatActivity() {
 
     // Delete button action
     private fun deleteApplication() {
-        AlertDialog.Builder(this)
+        AlertDialog.Builder(this, R.style.MyAlertDialogTheme)
             .setTitle(resources.getString(R.string.dialog_delete_title))
             .setMessage(resources.getString(R.string.dialog_delete_message))
             .setPositiveButton(resources.getString(R.string.dialog_confirm_button)) { _, _ ->
@@ -92,10 +96,25 @@ class ApplicationDetailsActivity : AppCompatActivity() {
         viewModel.applicationDetail.observe(this) { applicationValues ->
             binding.jobTitleTextView.text = applicationValues.jobTitle
             binding.companyNameTextView.text = applicationValues.companyName
+
+            binding.urlHeader.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_url_link, 0, 0, 0)
             binding.jobUrlTextView.text = applicationValues.applicationURL
+
+            binding.appliedAtTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_calendar, 0, 0, 0)
             binding.appliedAtTextView.text = applicationValues.applicationDate
-            binding.jobStatusTextView.text = StatusTranslator.translate(this, applicationValues.status)
+
+            // Copy drawable so it does not change the original background
+            // for reuse purposes
+            val originalDrawable = ContextCompat.getDrawable(this, R.drawable.bg_rounded_box)?.mutate()
+            val color = StatusManager.getStatusColor(this, applicationValues.statusId!!)
+            originalDrawable?.setTint(color)
+            binding.jobStatusTextView.background = originalDrawable
+            binding.jobStatusTextView.text = StatusManager.translate(this, applicationValues.status)
+
+            binding.notesHeader.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_note, 0, 0, 0)
             binding.notesTextView.text = applicationValues.notes
+
+            binding.jobLocationTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_location_pin, 0, 0, 0)
             binding.jobLocationTextView.text = applicationValues.applicationLocation
         }
     }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Application Manager</string>
+    <string name="app_name">Applications Manager</string>
     <string name="add_application_button">button to add application</string>
     <string name="company">Company:</string>
     <string name="url">URL:</string>
@@ -7,14 +7,14 @@
     <string name="status_in_details">Status:</string>
     <string name="job_location_in_details">Job Location:</string>
     <string name="applied_on">Applied on:</string>
-    <string name="choose_application_status">Choose Application Status</string>
-    <string name="status">Status</string>
+    <string name="choose_application_status">Application Status*</string>
+    <string name="status">Status*</string>
     <string name="notes">Notes</string>
-    <string name="application_date">Application Date</string>
-    <string name="job_location">Job Location</string>
+    <string name="application_date">Application Date*</string>
+    <string name="job_location">Job Location*</string>
     <string name="job_url">Job Url</string>
-    <string name="job_title">Job Title</string>
-    <string name="choose_company">Choose Company</string>
+    <string name="job_title">Job Title*</string>
+    <string name="choose_company">Choose Company*</string>
     <string name="add_company_button">add company button</string>
     <string name="save_application">Save Application</string>
     <string name="no_applications_yet">No applications yet</string>
@@ -22,7 +22,7 @@
     <string name="add_application">Add Application</string>
     <string name="image_for_empty_list">image for empty list</string>
     <string name="new_company">New Company</string>
-    <string name="company_name">Company Name</string>
+    <string name="company_name">Company Name*</string>
     <string name="company_website">Company Website</string>
     <string name="company_linkedin">Company LinkedIn</string>
     <string name="back_button">Back button</string>
@@ -31,7 +31,7 @@
     <string name="dialog_cancel_button">Cancel</string>
     <string name="dialog_confirm_button">Yes</string>
     <string name="dialog_save_button">Save</string>
-    <string name="dialog_delete_title">Delete Confirmation</string>
+    <string name="dialog_delete_title">Delete Job Application</string>
     <string name="dialog_delete_message">Are you sure you want to delete?</string>
     <string name="dialog_delete_toast_confirmation">Application deleted</string>
     <string name="toolbar_title">Your Applications</string>
@@ -42,8 +42,14 @@
     <string name="status_error_select">Select valid Status</string>
     <string name="toast_application_updated">Application Updated</string>
     <string name="toast_application_saved">Application Saved</string>
+    <string name="toast_application_update_failed">Application update failed</string>
     <string name="status_applied">Applied</string>
     <string name="status_refused">Refused</string>
     <string name="status_interview">Interview</string>
     <string name="status_waiting">Waiting</string>
+    <string name="empty_text">Required field</string>
+    <string name="job_applications_list">Job Applications List</string>
+    <string name="existing_company">Company already exists</string>
+    <string name="loading">Loading…</string>
+    <string name="toast_company_success">Company saved successfully</string>
 </resources>

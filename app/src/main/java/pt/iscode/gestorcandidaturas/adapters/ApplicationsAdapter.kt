@@ -4,9 +4,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import pt.iscode.gestorcandidaturas.R
-import pt.iscode.gestorcandidaturas.StatusTranslator
+import pt.iscode.gestorcandidaturas.StatusManager
 import pt.iscode.gestorcandidaturas.interfaces.OnApplicationItemClickListener
 import pt.iscode.gestorcandidaturas.models.ApplicationsValues
 
@@ -27,13 +28,23 @@ class ApplicationsAdapter(
         private val statusName: TextView = itemView.findViewById(R.id.statusName)
         private val notes: TextView = itemView.findViewById(R.id.notes)
         private val applicationDate: TextView = itemView.findViewById(R.id.applicationDate)
+        private val jobLocation: TextView = itemView.findViewById(R.id.jobLocation)
 
         fun bind(application: ApplicationsValues) {
             companyName.text = application.companyName
             jobTitle.text = application.jobTitle
-            statusName.text = StatusTranslator.translate(itemView.context, application.status)
+            statusName.text = StatusManager.translate(itemView.context, application.status)
             notes.text = application.notes
             applicationDate.text = application.applicationDate
+            jobLocation.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_location_pin, 0, 0, 0)
+            jobLocation.text = application.applicationLocation
+
+            // Copy drawable so it does not change the original background
+            // for reuse purposes
+            val originalDrawable = ContextCompat.getDrawable(itemView.context, R.drawable.bg_rounded_box)?.mutate()
+            val color = StatusManager.getStatusColor(itemView.context, application.statusId!!)
+            originalDrawable?.setTint(color)
+            statusName.background = originalDrawable
 
             itemView.setOnClickListener {
                 listener.onApplicationItemClick(application.applicationId)

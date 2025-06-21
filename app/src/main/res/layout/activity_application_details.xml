@@ -9,8 +9,7 @@
 
     <include
         android:id="@+id/toolbarInc"
-        layout="@layout/navbar_base_layout"
-        />
+        layout="@layout/toolbar_base_layout" />
 
     <ScrollView
         android:layout_width="0dp"
@@ -27,150 +26,205 @@
             android:orientation="vertical"
             android:paddingBottom="32dp">
 
-            <!-- Job Title -->
             <TextView
                 android:id="@+id/jobTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:textColor="?android:textColorPrimary" />
-
-            <!-- Company -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="16dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/company"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:layout_marginEnd="8dp" />
-
-                <TextView
-                    android:id="@+id/companyNameTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp" />
-            </LinearLayout>
-
-            <!-- URL -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="16dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/url"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:layout_marginEnd="8dp" />
-
-                <TextView
-                    android:id="@+id/jobUrlTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="16sp"
-                    android:autoLink="web"
-                    />
-            </LinearLayout>
-
-            <!-- Notes -->
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/notes_in_details"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:layout_marginTop="16dp" />
+                android:layout_marginStart="5dp"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="22sp"
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/notesTextView"
+                android:id="@+id/companyNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="?attr/colorOnSurface"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="4dp" />
+
+            <!-- Card: Job Details -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:layout_marginTop="4dp"
-                android:textColor="?android:textColorSecondary" />
+                android:layout_marginTop="8dp"
+                app:cardElevation="6dp"
+                android:backgroundTint="?attr/colorSecondaryVariant"
+                app:cardCornerRadius="16dp">
 
-            <!-- Status -->
-            <LinearLayout
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/job_location_in_details"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorOnSurface"
+                        android:layout_marginEnd="8dp" />
+
+                    <TextView
+                        android:id="@+id/jobLocationTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:textColor="?attr/colorOnSurface"
+                        android:layout_marginTop="2dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Card: URL -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="12dp"
+                app:cardElevation="6dp"
+                android:backgroundTint="?attr/colorSecondaryVariant"
+                app:cardCornerRadius="16dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/status_in_details"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:layout_marginEnd="8dp" />
+                    android:orientation="horizontal"
+                    android:padding="16dp">
 
-                <TextView
-                    android:id="@+id/jobStatusTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:paddingHorizontal="12dp"
-                    android:paddingVertical="6dp"
-                    android:background="@drawable/bg_rounded_box"
-                    android:textSize="18sp" />
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/urlHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/url"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorOnSurface"
+                        android:gravity="center_vertical"
+                        android:layout_marginEnd="8dp" />
 
-            <!-- Location -->
-            <LinearLayout
+                    <TextView
+                        android:id="@+id/jobUrlTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:autoLink="web"
+                        android:textColor="?attr/colorOnSurface"
+                        android:gravity="center_vertical"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Card: Notes -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="16dp">
+                android:layout_marginTop="12dp"
+                app:cardElevation="6dp"
+                android:backgroundTint="?attr/colorSecondaryVariant"
+                app:cardCornerRadius="16dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/job_location_in_details"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:layout_marginEnd="8dp" />
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-                <TextView
-                    android:id="@+id/jobLocationTextView"
-                    android:layout_width="100dp"
-                    android:layout_height="30dp"
-                    android:textSize="18sp" />
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/notesHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/notes_in_details"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorOnSurface"
+                        android:gravity="center_vertical"
+                        android:textSize="16sp" />
 
-            <!-- Applied Date -->
-            <LinearLayout
+                    <TextView
+                        android:id="@+id/notesTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textSize="16sp"
+                        android:textColor="?attr/colorOnSurface"
+                        />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Card: Status -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="12dp"
+                app:cardElevation="6dp"
+                android:backgroundTint="?attr/colorSecondaryVariant"
+                app:cardCornerRadius="16dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/applied_on"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:layout_marginEnd="8dp" />
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-                <TextView
-                    android:id="@+id/appliedAtTextView"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/jobStatusHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/status_in_details"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/jobStatusTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="6dp"
+                        android:background="@drawable/bg_rounded_box"
+                        android:textSize="16sp"
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Card: Applied Date -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="10dp"
+                app:cardElevation="6dp"
+                android:backgroundTint="?attr/colorSecondaryVariant"
+                app:cardCornerRadius="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="20sp" />
-            </LinearLayout>
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/appliedAtHeader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/applied_on"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/appliedAtTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginStart="5dp"
+                        android:textColor="?attr/colorOnSurface" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
         </LinearLayout>
+
     </ScrollView>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

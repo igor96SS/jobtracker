@@ -2,6 +2,8 @@ package pt.iscode.gestorcandidaturas.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -53,8 +55,14 @@ class MainActivity : AppCompatActivity(), OnApplicationItemClickListener {
         binding.applicationsListRecyclerView.adapter = adapter
 
         viewModel.applications.observe(this) { list ->
-            adapter.submitList(list)
-            updateUI(list.isEmpty())
+
+            // 500ms delay for loading to appear
+            Handler(Looper.getMainLooper()).postDelayed({
+                adapter.submitList(list)
+                binding.progressBar.visibility = View.GONE
+                binding.loadingTextView.visibility = View.GONE
+                updateUI(list.isEmpty())
+            }, 500)
         }
 
         viewModel.loadAllData()
@@ -72,11 +80,11 @@ class MainActivity : AppCompatActivity(), OnApplicationItemClickListener {
     private fun updateUI(isEmpty: Boolean){
         if (isEmpty){
             binding.mainFloatBTN.visibility = View.GONE
-            binding.applicationsListRecyclerView.visibility = View.GONE
+            binding.linearLayout.visibility = View.GONE
             binding.centerContainer.visibility = View.VISIBLE
         }else{
             binding.mainFloatBTN.visibility = View.VISIBLE
-            binding.applicationsListRecyclerView.visibility = View.VISIBLE
+            binding.linearLayout.visibility = View.VISIBLE
             binding.centerContainer.visibility = View.GONE
         }
     }

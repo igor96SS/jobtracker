@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="12dp"
     app:cardCornerRadius="16dp"
+    android:backgroundTint="?attr/colorSecondaryVariant"
     app:cardElevation="6dp">
 
     <LinearLayout
@@ -26,21 +27,24 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="20sp"/>
 
             <TextView
                 android:id="@+id/applicationDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="15sp"/>
         </LinearLayout>
 
-        <!-- Job Possition -->
+        <!-- Job Position -->
         <TextView
             android:id="@+id/jobPosition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
+            android:textColor="?attr/colorOnSurface"
             android:layout_marginTop="8dp"
             android:textStyle="italic|bold" />
 
@@ -50,18 +54,45 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="13sp" />
 
-        <!-- Status -->
-        <TextView
-            android:id="@+id/statusName"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:paddingHorizontal="12dp"
-            android:paddingVertical="6dp"
-            android:textSize="15sp"
-            android:background="@drawable/bg_rounded_box"
-            android:textColor="@android:color/white"/>
+            android:orientation="horizontal">
+
+            <!-- Status -->
+            <TextView
+                android:id="@+id/statusName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="6dp"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:background="@drawable/bg_rounded_box"
+                android:textColor="@android:color/white" />
+
+            <!-- Spacer view to send location to the end -->
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+
+            <TextView
+                android:id="@+id/jobLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="6dp"
+                android:textSize="15sp"
+                android:textColor="?attr/colorOnSurface" />
+        </LinearLayout>
+
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>

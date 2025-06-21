@@ -38,8 +38,15 @@ class ApplicationViewModel(
     private val _applicationDetails = MutableLiveData<ApplicationsValues>()
     val applicationDetail: LiveData<ApplicationsValues> get() = _applicationDetails
 
-    private val _updateStatus = MutableLiveData<Boolean>()
-    val updateStatus: LiveData<Boolean> = _updateStatus
+    private val _updateApplicationStatus = MutableLiveData<Boolean>()
+    val updateApplicationStatus: LiveData<Boolean> = _updateApplicationStatus
+
+
+    //check if company exists
+    suspend fun companyExists(name: String): Boolean {
+        return companyRepository.companyExists(name)
+    }
+
 
     //region load data
     fun loadStatus(){
@@ -77,6 +84,7 @@ class ApplicationViewModel(
                 applicationId = application.id,
                 companyName = company.name,
                 jobTitle = application.name,
+                statusId = application.statusID,
                 status = statusName,
                 notes = application.notes ?: "",
                 applicationDate = application.dateApplied.toString(),
@@ -95,11 +103,13 @@ class ApplicationViewModel(
 
             val valuesList = apps.map { app ->
                 val companyName = companies.find { it.id == app.companyID }?.name ?: "Unknown Company"
+                val statusId = statuses.find { it.id == app.statusID }?.id ?:0
                 val statusName = statuses.find { it.id == app.statusID }?.name ?: "Unknown Status"
                 ApplicationsValues(
                     applicationId = app.id,
                     companyName = companyName,
                     jobTitle = app.name,
+                    statusId = statusId,
                     status = statusName,
                     notes = app.notes ?: "",
                     applicationDate = app.dateApplied.toString(),
@@ -145,6 +155,7 @@ class ApplicationViewModel(
             )
 
             companyRepository.insertCompany(company)
+            loadCompanies()
         }
     }
 
@@ -180,9 +191,9 @@ class ApplicationViewModel(
                     notes = notes
                 )
                 applicationRepository.updateApplication(application)
-                _updateStatus.postValue(true)
+                _updateApplicationStatus.postValue(true)
             } catch (e: Exception) {
-                _updateStatus.postValue(false)
+                _updateApplicationStatus.postValue(false)
             }
         }
     }

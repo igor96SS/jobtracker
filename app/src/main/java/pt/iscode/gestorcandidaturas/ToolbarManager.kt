@@ -11,6 +11,7 @@ class ToolbarManager(private val activity: AppCompatActivity) {
     fun setup(title: String, showEdit: Boolean = false, showDelete: Boolean = false,
         onEditClick: (() -> Unit)? = null,
         onDeleteClick: (() -> Unit)? = null,
+        onBackClick: (() -> Unit)? = null
     ) {
 
         val titleText = activity.findViewById<TextView>(R.id.labelText)
@@ -24,7 +25,7 @@ class ToolbarManager(private val activity: AppCompatActivity) {
 
         //Back button click
         buttonBack.setOnClickListener {
-            activity.onBackPressedDispatcher.onBackPressed()
+            onBackClick?.invoke()
         }
 
         //Button edit click

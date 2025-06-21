@@ -2,4 +2,41 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="status_blue">#1E88E5</color>
+    <color name="status_green">#43A047</color>
+    <color name="status_red">#E53935</color>
+    <color name="status_yellow">#FBC02D</color>
+    <color name="status_gray">#9E9E9E</color>
+    <color name="blue_theme">#0E1A27</color>
+
+    <!-- Dark colors based on #182c40 -->
+    <color name="colorPrimary">#2a4059</color>
+    <color name="colorPrimaryVariant">#122230</color>
+    <color name="colorSecondary">#3d5c7d</color>
+    <color name="colorSecondaryVariant">#20344e</color>
+    <color name="colorBackground">#121a26</color>
+    <color name="colorSurface">#1e2f47</color>
+    <color name="colorError">#cf6679</color>
+    <color name="onPrimary">#FFFFFF</color>
+    <color name="onSecondary">#E1E8F0</color>
+    <color name="onBackground">#CFD8E9</color>
+    <color name="onSurface">#D4DDEA</color>
+    <color name="onError">#000000</color>
+
+    <!-- Light theme colors -->
+    <color name="light_colorPrimary">#6C86A0</color>
+    <color name="light_colorPrimaryVariant">#607D99</color>
+    <color name="light_colorSecondary">#6E87A3</color>
+    <color name="light_colorSecondaryVariant">#A0B8D1</color>
+    <color name="light_colorBackground">#E8F0F8</color>
+    <color name="light_colorSurface">#E9F1FA</color>
+    <color name="light_colorError">#B00020</color>
+
+    <color name="light_onPrimary">#FFFFFF</color>
+    <color name="light_onSecondary">#1A2E44</color>
+    <color name="light_onBackground">#0F1F2E</color>
+    <color name="light_onSurface">#1C2E44</color>
+    <color name="light_onError">#FFFFFF</color>
+
+
 </resources>

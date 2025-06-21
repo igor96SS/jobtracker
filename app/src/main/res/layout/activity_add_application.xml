@@ -8,10 +8,10 @@
     tools:context=".activities.AddApplicationActivity">
 
     <include
-        layout="@layout/navbar_base_layout"
+        layout="@layout/toolbar_base_layout"
         />
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -32,6 +32,8 @@
                 android:layout_marginEnd="10dp"
                 android:layout_height="wrap_content"
                 android:layout_width="0dp"
+                android:textColorHint="?attr/colorSecondary"
+                app:hintTextColor="?attr/colorOnSurface"
                 app:layout_constraintEnd_toStartOf="@+id/companyBTN"
                 app:layout_constraintBottom_toBottomOf="@+id/companyBTN"
                 app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +44,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/choose_company"
-                    android:inputType="none" />
+                    android:inputType="none"
+                    android:backgroundTint="?attr/colorSecondaryVariant"/>
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -51,7 +54,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:contentDescription="@string/add_company_button"
-                android:src="@drawable/plus_sign"
+                android:src="@drawable/ic_plus_sign"
                 android:background="@drawable/bg_rounded_box"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
@@ -178,6 +181,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
+                android:textColorHint="?attr/colorSecondary"
+                app:hintTextColor="?attr/colorOnSurface"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/statusText"
@@ -188,6 +193,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/choose_application_status"
+                    android:backgroundTint="?attr/colorSecondaryVariant"
                     android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -197,16 +203,16 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="18dp"
                 android:text="@string/save_application"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 app:layout_constraintTop_toBottomOf="@+id/statusLayout"
                 />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 
 

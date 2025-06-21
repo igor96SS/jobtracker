@@ -7,14 +7,14 @@
     <string name="status_in_details">Estado:</string>
     <string name="job_location_in_details">Localização da vaga:</string>
     <string name="applied_on">Candidatou-se em:</string>
-    <string name="choose_application_status">Escolha o estado da candidatura</string>
-    <string name="status">Estado</string>
+    <string name="choose_application_status">Estado da Candidatura*</string>
+    <string name="status">Estado*</string>
     <string name="notes">Notas</string>
-    <string name="application_date">Data da Candidatura</string>
-    <string name="job_location">Localização do trabalho</string>
+    <string name="application_date">Data da Candidatura*</string>
+    <string name="job_location">Localização da vaga*</string>
     <string name="job_url">Site da Vaga</string>
-    <string name="job_title">Título da vaga</string>
-    <string name="choose_company">Escolha a empresa</string>
+    <string name="job_title">Título da vaga*</string>
+    <string name="choose_company">Escolha a empresa*</string>
     <string name="add_company_button">botão para adicionar empresa</string>
     <string name="save_application">Guardar Candidatura</string>
     <string name="no_applications_yet">Sem Candidaturas</string>
@@ -22,7 +22,7 @@
     <string name="add_application">Adicionar Candidatura</string>
     <string name="image_for_empty_list">imagem lista vazia</string>
     <string name="new_company">Nova Empresa</string>
-    <string name="company_name">Nome da Empresa</string>
+    <string name="company_name">Nome da Empresa*</string>
     <string name="company_website">Site da Empresa</string>
     <string name="company_linkedin">LinkedIn da Empresa</string>
     <string name="back_button">Botão Retroceder</string>
@@ -31,8 +31,8 @@
     <string name="dialog_cancel_button">Cancelar</string>
     <string name="dialog_confirm_button">Sim</string>
     <string name="dialog_save_button">Guardar</string>
-    <string name="dialog_delete_title">Confirmação de apagar</string>
-    <string name="dialog_delete_message">Tem a certesa que deseja apagar?</string>
+    <string name="dialog_delete_title">Eliminar candidatura</string>
+    <string name="dialog_delete_message">Tem a certeza que deseja eliminar?</string>
     <string name="dialog_delete_toast_confirmation">Candidatura apagada</string>
     <string name="toolbar_title">As tuas Candidaturas</string>
     <string name="update_application_button">Atualizar Candidatura</string>
@@ -42,10 +42,15 @@
     <string name="status_error_select">Seleciona um estado válido</string>
     <string name="toast_application_updated">Candidatura Atualizada</string>
     <string name="toast_application_saved">Candidatura Guardada</string>
-    <!-- Exclusive for PT version-->
+    <string name="toast_application_update_failed">Atualização da candidatura falhou</string>
     <string name="status_applied">Candidatura enviada</string>
     <string name="status_refused">Recusado</string>
     <string name="status_interview">Entrevista</string>
     <string name="status_waiting">A aguardar resposta</string>
+    <string name="empty_text">Campo Obrigatório</string>
+    <string name="job_applications_list">Lista de Candidaturas</string>
+    <string name="existing_company">Empresa já existe</string>
+    <string name="loading">A Carregar…</string>
+    <string name="toast_company_success">Empresa Adicionada com sucesso</string>
 
 </resources>
