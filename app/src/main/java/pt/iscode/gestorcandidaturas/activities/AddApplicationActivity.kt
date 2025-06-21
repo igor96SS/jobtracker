@@ -377,6 +377,10 @@ class AddApplicationActivity : AppCompatActivity(){
                         Toast.makeText(this, getString(R.string.toast_application_updated), Toast.LENGTH_SHORT).show()
                         val intent = Intent(this, ApplicationDetailsActivity::class.java)
                         intent.putExtra("applicationID", applicationID)
+                        // Clear any activities on top or reuse the existing one in the stack,
+                        // preventing a return to the same activity after update
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+
                         startActivity(intent)
                         finish()
                     } else {
