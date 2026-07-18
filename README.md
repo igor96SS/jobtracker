@@ -21,7 +21,7 @@ Still, this project has been a great learning experience and helped me understan
 ## How to Install
 
 The app is available on the **Google Play Store**.  
-(Play Store link will be added here once published.)
+**https://play.google.com/store/apps/details?id=pt.iscode.gestorcandidaturas**
 
 ## Future Improvements
 - Filter and sort applications  
