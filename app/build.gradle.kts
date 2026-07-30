@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "pt.iscode.gestorcandidaturas"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "pt.iscode.gestorcandidaturas"
         minSdk = 28
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 2
         versionName = "1.0.1"
 
